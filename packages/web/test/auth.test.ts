@@ -30,16 +30,13 @@ async function openServer(): Promise<{
 	const root = mkdtempSync(join(tmpdir(), "sentinel-auth-"));
 	roots.push(root);
 	// The gate is off here: this file is about the password, and a gated server
-	// answers 404 to every request that has not opened the entry URL first. The
-	// authorization promise is off for the same reason — it closes the API until
-	// it is accepted, which is a separate concern with its own file (consent.test.ts).
+	// answers 404 to every request that has not opened the entry URL first.
 	const started = await startSentinelServer({
 		cwd: root,
 		agentDir: root,
 		host: "127.0.0.1",
 		port: 0,
 		gate: false,
-		consent: false,
 	});
 	servers.push(started);
 	return { started, url: started.url, root };
@@ -113,7 +110,6 @@ test("a fresh install asks for setup, and setup both creates the account and log
 	expect(await session.json()).toEqual({
 		ok: true,
 		username: "operator",
-		consent: { required: false, acceptedAt: null, version: 2 },
 	});
 
 	const health = await json(url, "/api/health", { cookie });

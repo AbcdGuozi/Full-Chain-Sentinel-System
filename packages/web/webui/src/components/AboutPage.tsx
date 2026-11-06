@@ -83,7 +83,7 @@ export function AboutPage({
 					))}
 				</div>
 				<p className="ws-panel__hint">
-					{t("所有命令都在项目容器内以 root 执行，bash 命令在审批模式下逐条确认。工具输出与文件面板内容来自容器，请仅在已授权的目标上使用。")}
+					{t("所有命令都在项目容器内以 root 执行，bash 命令在审批模式下逐条确认。工具输出与文件面板内容来自容器。")}
 				</p>
 				<div className="about-brand">
 					<SentinelMark size={16} className="about-brand__mark" />

@@ -68,7 +68,7 @@ export function AuthGate({ mode, onDone }: { mode: "setup" | "login"; onDone: ()
 					</span>
 					<span className="auth-brand-name">{t("全链哨兵")}</span>
 				</div>
-				<div className="auth-tagline">{t("授权渗透测试工作台")}</div>
+				<div className="auth-tagline">{t("渗透测试工作台")}</div>
 			</div>
 			<div className="auth-panel">
 				<form className="auth-form" onSubmit={submit}>

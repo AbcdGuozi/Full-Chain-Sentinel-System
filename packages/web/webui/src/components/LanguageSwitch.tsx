@@ -1,6 +1,6 @@
 /**
  * A language switch for the screens that render before the console socket
- * exists: login, first-run setup and the authorization promise. Inside the
+ * exists: login and first-run setup. Inside the
  * console the sider owns the same choice through the WebSocket.
  */
 import { useEffect } from "react";

@@ -13,7 +13,7 @@ export const SUPERVISOR_STRATEGY_OPTIONS: SupervisorStrategyOption[] = [
 	{
 		id: "steady",
 		label: t("稳健交付"),
-		hint: t("先看授权边界和环境影响，建议以可复现、低影响步骤为主。"),
+		hint: t("先看环境影响和证据完整性，建议以可复现、低影响步骤为主。"),
 	},
 	{
 		id: "validation",

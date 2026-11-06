@@ -344,7 +344,7 @@ export function SupervisorSettingsPanel({
 											description: event.target.value,
 										})
 									}
-									placeholder={t("例如：先看授权边界，再验证越权")}
+									placeholder={t("例如：先看环境影响，再验证越权")}
 								/>
 							</label>
 							<label>
@@ -362,7 +362,7 @@ export function SupervisorSettingsPanel({
 								/>
 							</label>
 							<p className="hint">
-								{t("自定义说明只改变监督关注点和建议风格，不能放宽授权范围或安全规则。")}
+								{t("自定义说明只改变监督关注点和建议风格，不能放宽安全规则。")}
 							</p>
 							<div className="supervisor-custom__editor-actions">
 								<button type="button" onClick={() => setCustomStrategyDraft(null)}>

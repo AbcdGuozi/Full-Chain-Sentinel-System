@@ -193,9 +193,7 @@ export function AssetPanel({
 		<div className="asset-page">
 			<div className="asset-notice">
 				<b>{t("外发提示")}</b>{" "}
-				{t(
-					"查询内容与 API Key 会发送到对应第三方平台（FOFA / 360 Quake / 奇安信 Hunter），查询前请确认目标在授权范围内。",
-				)}
+				{t("查询内容与 API Key 会发送到对应第三方平台（FOFA / 360 Quake / 奇安信 Hunter）。")}
 			</div>
 			<p className="ws-panel__hint">
 				{t("这里配置测绘平台；Agent 上报的资产与测试记录在侧栏「资产库」。")}

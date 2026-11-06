@@ -2,7 +2,7 @@
  * Public project identity used by the console UI.
  *
  * Keep the repository and license URLs here so the about page, login screen,
- * sidebar, and consent gate cannot drift apart. The version is injected by Vite
+ * sidebar cannot drift apart. The version is injected by Vite
  * from `packages/web/package.json` at build time (see `vite.config.ts`).
  */
 

@@ -370,10 +370,10 @@ frida 用官方发布 + sha256；越狱工具给官方源；不内置第三方�
 越狱设备本身就是「已被攻破」状态，企业 EDR/MDM 可能检测越狱并告警。渗透测试应使用客户提供的测试机或自备机，不要用员工日常机。
 
 **Q93. 怎么防未授权设备接入？**
-gate + 登录 + 授权承诺 + 设备 token 四层。控制台默认监听 0.0.0.0 是现状，文档要强调反代/防火墙，别把控制台裸露在公网。
+gate + 登录 + 设备 token 三层。控制台默认监听 0.0.0.0 是现状，文档要强调反代/防火墙，别把控制台裸露在公网。
 
 **Q94. 免责声明怎么写？**
-复用现有授权声明，新增「iOS 设备端」章节：越狱风险、root 权限、数据留存、卸载方法、仅限授权设备。
+新增「iOS 设备端」章节：越狱风险、root 权限、数据留存与卸载方法。
 
 ## 8. 测试与交付
 
@@ -460,10 +460,10 @@ App Store 二进制的 `__TEXT` 是 FairPlay 密文，只有进程运行时系�
 按 4MB 分块读整个镜像（包含 `__LINKEDIT`，避免只读 `cryptsize` 导致重打包缺页），设备端边读边写，不攒内存；控制台先扫描 bundle 得到应解列表，dump 后报告 `missing`（未加载/未产出）与 `stillEncrypted`，不要假装完整；总超时 10 分钟，可中断。
 
 **Q111. 证据怎么留？**
-原 IPA（密文）、解密 IPA、`cryptid` 前后值、整包扫描/漏解/替换后重扫结果、设备型号/系统/越狱形态、时间、两个 IPA 与替换二进制的 SHA-256、失败原因。报告里写明「解密仅用于本次授权测试」。
+原 IPA（密文）、解密 IPA、`cryptid` 前后值、整包扫描/漏解/替换后重扫结果、设备型号/系统/越狱形态、时间、两个 IPA 与替换二进制的 SHA-256、失败原因。报告里写明「解密仅用于本次测试」。
 
 **Q112. 合规边界？**
-只在授权设备、授权目标上做；解密产物不传播、不公开、测试结束按客户要求删除；不绕过 App Store 购买。
+只在测试设备上做；解密产物不传播、不公开、测试结束按客户要求删除；不绕过 App Store 购买。
 
 **Q113. 什么算 v1 解密完成？**
 两台不同越狱形态的设备上，各成功 dump 一个真实 App 并安装启动；失败路径有清晰错误。做不到就降级成「实验性，默认关闭」，不要阻塞整个 v1 发布。
@@ -603,7 +603,7 @@ iOS 的差异点只有两处，都在这一层处理：
 
 2026-10-22 完成深度面第一刀：`ios_decrypt` 与 `ios_keychain`。
 
-**FairPlay 解密**（`ios-decrypt-tool.ts` + frida 内建 `ios_decrypt_dump`）。按第 11 节的设计，解密发生在设备上、由 frida 脚本完成：spawn 目标 App，遍历路径落在 `.app` 内且 `cryptid != 0` 的已加载 Mach-O，把整个镜像按 4MB 分块读出（内核在读加密页时解密）写到 `/tmp/sentinel-decrypt`，同时写 `manifest.json`，然后退出进程。控制台只做剩下的事：把原始 bundle 拉到 staging、用 dump 出来的镜像覆盖对应文件、把 `cryptid` 置 0、`chmod 755`、zip 成 `evidence/ios/ipas/<name>-decrypted.ipa`，并写同名 `.json` 报告（原/后 `cryptid`、每个二进制的 sha256、设备与越狱形态、时间、授权声明）。
+**FairPlay 解密**（`ios-decrypt-tool.ts` + frida 内建 `ios_decrypt_dump`）。按第 11 节的设计，解密发生在设备上、由 frida 脚本完成：spawn 目标 App，遍历路径落在 `.app` 内且 `cryptid != 0` 的已加载 Mach-O，把整个镜像按 4MB 分块读出（内核在读加密页时解密）写到 `/tmp/sentinel-decrypt`，同时写 `manifest.json`，然后退出进程。控制台只做剩下的事：把原始 bundle 拉到 staging、用 dump 出来的镜像覆盖对应文件、把 `cryptid` 置 0、`chmod 755`、zip 成 `evidence/ios/ipas/<name>-decrypted.ipa`，并写同名 `.json` 报告（原/后 `cryptid`、每个二进制的 sha256、设备与越狱形态、时间、测试记录）。
 
 没有把几十 MB 内存块塞进 WebSocket：dump 走设备端文件，控制台逐个分片拉取。失败按第 109 条分开报：frida 隧道不通、manifest 没产出（启动即退出/反调试/脚本未命中）、单个镜像拉取失败、`cryptid` 未清零，各自有独立信息，框架没加载只记 warning 不假装完整。
 

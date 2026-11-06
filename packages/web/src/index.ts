@@ -11,7 +11,6 @@
  * Flags:
  *   --check      run the Docker environment check, print it, and exit non-zero when it fails
  *   --no-gate    serve the console at / and skip the secret entry URL
- *   --no-consent skip the first-visit authorization promise
  *   --no-tls     serve plain HTTP instead of HTTPS (self-signed by default)
  *   --tls-cert <p> / --tls-key <p>  use an operator-provided certificate pair
  *   --tls-regen  re-sign the self-signed certificate (after the host changed networks)
@@ -45,7 +44,6 @@ const USAGE = `sentinel-web ${WEB_CONSOLE_VERSION} - 全链哨兵 Web 控制台
   --host <地址>    监听地址（默认 0.0.0.0，即所有网卡；环境变量 SENTINEL_HOST）
   --gate-token <串>  固定入口串（默认每次启动随机生成，环境变量 SENTINEL_GATE_TOKEN）
   --no-gate        关闭随机入口，直接以 / 提供服务
-  --no-consent     关闭首次进入的授权承诺（默认开启，勾选后才可用）
   --no-tls         关闭 HTTPS，退回明文 HTTP（默认自签 HTTPS）
   --tls-cert <p>   使用指定证书（与 --tls-key 成对，优先于自动生成）
   --tls-key <p>    使用指定私钥（与 --tls-cert 成对）
@@ -107,7 +105,6 @@ const port = Number(argValue("--port") ?? process.env.SENTINEL_PORT ?? 7777);
 const host = argValue("--host") ?? process.env.SENTINEL_HOST ?? "0.0.0.0";
 const cwd = argValue("--cwd") ?? process.env.SENTINEL_CWD ?? process.cwd();
 const noGate = process.argv.includes("--no-gate");
-const noConsent = process.argv.includes("--no-consent");
 const noTls = process.argv.includes("--no-tls") || process.env.SENTINEL_TLS === "0";
 const tlsCertArg = argValue("--tls-cert");
 const tlsKeyArg = argValue("--tls-key");
@@ -177,7 +174,6 @@ const { url, environment } = await startSentinelServer({
 	cwd,
 	agentDir: getAgentDir(),
 	gate: !noGate,
-	consent: !noConsent,
 	...(gateToken ? { gateToken } : {}),
 	...(tls ? { tls } : {}),
 });

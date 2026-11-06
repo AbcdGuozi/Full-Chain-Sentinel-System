@@ -1,0 +1,8 @@
+{
+  "importedAt": "2026-10-23T09:03:41.087Z",
+  "source": "<local-clown-source>",
+  "sourceCommit": "9654266af3952ca85b5f89d71caa5f3f25a3fce5",
+  "sourceRemote": "https://github.com/SuperDemon921/PentestSkill.git",
+  "files": 46,
+  "note": "rules/、.trae/、docs/、bin/ 未导入；真实目标、账号、Token、PII、WebShell 不进入知识库。"
+}

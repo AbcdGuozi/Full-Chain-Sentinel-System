@@ -667,7 +667,6 @@ export const EN_MESSAGES: Record<string, string> = {
 		"image is no longer supported: the plugin package now carries a Dockerfile that the plugin host builds locally",
 	"不勾选 = 不限制，可使用全部已启用预设": "Checking none = no restriction; every enabled preset is usable",
 	不可写: "Not writable",
-	"不同意，退出": "Decline and exit",
 	"不挂载任何工具，只保留纯对话": "Mount no tools; plain conversation only",
 	"不支持的协议：{api}": "Unsupported protocol: {api}",
 	"不支持的压缩方式 {method}": "Unsupported compression method {method}",
@@ -861,7 +860,6 @@ export const EN_MESSAGES: Record<string, string> = {
 		"e.g.:\nAll open ports have confirmed services and versions\nDiscovered issues were submitted to the vulnerability hub",
 	"例如：优先验证 IDOR；不做目录爆破；建议必须给出对照请求。":
 		"e.g. Prioritize IDOR validation; no directory brute force; suggestions must include control requests.",
-	"例如：先看授权边界，再验证越权": "e.g. Check authorization boundaries first, then verify privilege escalation",
 	"例如：只允许测试 10.0.0.5，禁止删除业务数据": "e.g. Only test 10.0.0.5; do not delete business data",
 	"例如：对 10.10.10.5 完成全端口侦察，确认服务与版本，并把确认的问题提交到漏洞中枢":
 		"e.g. Run a full port scan on 10.10.10.5, confirm services and versions, and submit confirmed issues to the vulnerability hub",
@@ -949,8 +947,6 @@ export const EN_MESSAGES: Record<string, string> = {
 	先定义这次评估的边界: "Define the scope of this assessment first",
 	先添加一个插件主机: "Add a plugin host first",
 	"先添加一个插件主机。": "Add a plugin host first.",
-	"先看授权边界和环境影响，建议以可复现、低影响步骤为主。":
-		"Check authorization boundaries and environmental impact first; favor reproducible, low-impact steps.",
 	"免费点 {free} / 每日 {daily} · 权益点 {equity}": "Free points {free} / daily {daily} · entitlement points {equity}",
 	"免费点 {free} · F 点 {points}": "Free points {free} · F points {points}",
 	全局阈值与新会话的默认值: "Global thresholds and defaults for new sessions",
@@ -1609,7 +1605,6 @@ export const EN_MESSAGES: Record<string, string> = {
 	"已开启监督：{mode} · {strategy}": "Supervision enabled: {mode} · {strategy}",
 	已忽略: "Ignored",
 	已拒绝: "Denied",
-	"已拒绝，无法进入平台": "Declined. You cannot enter the platform.",
 	已挂载: "Mounted",
 	"已挂载 {tool} 给 Agent": "{tool} mounted for the Agent",
 	"已按内置库「{provider}」填充，可继续修改。":
@@ -1629,7 +1624,6 @@ export const EN_MESSAGES: Record<string, string> = {
 	"已登录：{user}": "Signed in: {user}",
 	已确认: "Confirmed",
 	"已确认 {count}": "Confirmed {count}",
-	"已确认，可以进入平台": "Confirmed. You may enter the platform.",
 	"已禁用：{tools}": "Disabled: {tools}",
 	已移除带入的建模数据: "Removed attached modeling data",
 	已终止: "Stopped",
@@ -1737,7 +1731,6 @@ export const EN_MESSAGES: Record<string, string> = {
 	待跟进: "To follow up",
 	循环: "Looping",
 	必填: "Required",
-	必须勾选承诺才能记录: "The statement must be accepted before it can be recorded",
 	忽略: "Ignore",
 	思考: "Thinking",
 	"思考 · {count} 字": "Thinking · {count} chars",
@@ -1763,12 +1756,9 @@ export const EN_MESSAGES: Record<string, string> = {
 	恢复时间: "Resume time",
 	恢复时间必须晚于暂停时间: "Resume time must be later than the pause time",
 	成功: "Success",
-	我承诺只用于授权合法的渗透测试: "I commit to using it only for authorized, lawful penetration testing",
 	"我确认该命令会在控制台宿主机上直接执行（不在容器内、不经过 bash 审批）":
 		"I confirm this command runs directly on the console host (not in a container and without bash approval)",
 	或进入已有项目: "Or open an existing Project",
-	"所有命令都在项目容器内以 root 执行，bash 命令在审批模式下逐条确认。工具输出与文件面板内容来自容器，请仅在已授权的目标上使用。":
-		"All commands run as root inside the project container, and bash commands are confirmed one by one in Approval mode. Tool output and file panel content come from the container; use them only against authorized targets.",
 	手动: "Manual",
 	手动优先: "Manual wins",
 	手动暂停: "manually paused",
@@ -1857,8 +1847,6 @@ export const EN_MESSAGES: Record<string, string> = {
 	"按模型 ID 查内置库": "Look up by model ID in the built-in catalog",
 	按需加载: "Load on demand",
 	"按需加载（tool_search）": "Load on demand (tool_search)",
-	授权与风险承诺: "Authorization and Risk Commitment",
-	授权渗透测试工作台: "Authorized penetration testing workbench",
 	排队: "Queue",
 	"排队 {count}": "Queued {count}",
 	排队中: "Queued",
@@ -2019,7 +2007,6 @@ export const EN_MESSAGES: Record<string, string> = {
 	无法导入: "Cannot import",
 	"无法解析守门员回复：{reply}": "Cannot parse gatekeeper reply: {reply}",
 	无法解析的消息格式: "Unparseable message format",
-	"无法读取承诺条款，请刷新页面重试": "Unable to load the commitment terms. Refresh the page and try again.",
 	无法读取挂载信息: "Cannot read mount information",
 	无法读取磁盘空间: "Cannot read disk space",
 	无法读取镜像或宿主的平台信息: "Cannot read the image or host platform",
@@ -2113,8 +2100,6 @@ export const EN_MESSAGES: Record<string, string> = {
 	未判断: "Undetermined",
 	"未勾选宿主机执行确认：不连接、不注册工具":
 		"Host-execution confirmation not checked: not connected, no tools registered",
-	"未勾选承诺时平台不提供任何功能。关闭页面即可；如果改变主意，可以重新阅读并接受。":
-		"The platform offers no functionality unless you accept the commitment. You can simply close the page; if you change your mind, you can read and accept it again.",
 	未同步: "Not synced",
 	未启用: "Disabled",
 	未启用独立监听: "No dedicated listener",
@@ -2260,8 +2245,6 @@ export const EN_MESSAGES: Record<string, string> = {
 	查看源码与许可证: "View source code and license",
 	查询: "Search",
 	"查询中…": "Looking up…",
-	"查询内容与 API Key 会发送到对应第三方平台（FOFA / 360 Quake / 奇安信 Hunter），查询前请确认目标在授权范围内。":
-		"Queries and API keys are sent to the selected third-party platform (FOFA / 360 Quake / Qi-AnXin Hunter). Confirm the target is in scope before querying.",
 	查询失败: "Query failed",
 	"查询语法（给 Agent 用）": "Query syntax (for the Agent)",
 	标准: "Standard",
@@ -2316,7 +2299,6 @@ export const EN_MESSAGES: Record<string, string> = {
 	"正在读取 MCP 配置…": "Loading MCP configuration…",
 	"正在读取 Web 搜索配置…": "Loading web search configuration…",
 	"正在读取内置渠道…": "Loading built-in channels…",
-	"正在读取承诺条款…": "Loading commitment terms…",
 	"正在读取插件…": "Loading plugins…",
 	"正在读取插件中心…": "Loading plugin center…",
 	"正在读取权限配置…": "Loading permission configuration…",
@@ -2654,10 +2636,8 @@ export const EN_MESSAGES: Record<string, string> = {
 	"缺少插件包；安装需要包含 Dockerfile 的 zip":
 		"Missing plugin package; install requires a zip that contains a Dockerfile",
 	"缺少有效的模板 id": "Missing a valid template id",
-	"缺少账号或配置目录，无法记录承诺": "Missing account or config directory; the statement cannot be recorded",
 	缺少配置目录: "Missing config directory",
 	"缺少配置目录，无法创建账号": "Missing config directory; the account cannot be created",
-	"缺少配置目录，无法记录承诺": "Missing config directory; the statement cannot be recorded",
 	网络: "Network",
 	网络错误: "Network error",
 	"网络问题：确认端点地址可达、服务已启动。可用「设置 → 模型 → 测试连接」定位。":
@@ -2690,8 +2670,6 @@ export const EN_MESSAGES: Record<string, string> = {
 		"A custom channel keeps the capabilities you entered; check them yourself.",
 	自定义监督策略不存在或已被删除: "The custom supervision strategy does not exist or was deleted",
 	自定义策略: "Custom strategies",
-	"自定义说明只改变监督关注点和建议风格，不能放宽授权范围或安全规则。":
-		"Custom notes only change supervision focus areas and suggestion style; they cannot relax authorization scope or safety rules.",
 	"自己填 Base URL 与协议": "Enter the base URL and protocol yourself",
 	"自己填 Base URL、协议与模型 ID": "Enter the base URL, protocol and model ID yourself",
 	自评: "Self-rated",
@@ -2742,7 +2720,6 @@ export const EN_MESSAGES: Record<string, string> = {
 	"认证头的名称只能是字母、数字与连字符": "Auth header names may contain only letters, digits and hyphens",
 	"记住登录 30 天": "Keep me signed in for 30 days",
 	记录已被操作员删除: "The record was deleted by the operator",
-	"记录承诺失败，请重试": "Failed to record the commitment. Please try again.",
 	设备: "Device",
 	"设备「{name}」": 'Device "{name}"',
 	设备不在线: "Device is offline",
@@ -2824,7 +2801,6 @@ export const EN_MESSAGES: Record<string, string> = {
 	"请先创建或选择一个项目，再把插件产物落进证据目录":
 		"Create or select a project before saving plugin artifacts to the evidence directory",
 	"请先创建或选择一个项目，工程属于项目": "Create or select a project first; Engagements belong to a project",
-	"请先勾选承诺，否则无法进入平台": "Please accept the commitment first; otherwise you cannot enter the platform.",
 	"请先在「设置 → 模型」中配置 OpenAI 兼容端点。":
 		"Configure an OpenAI-compatible endpoint first in Settings → Models.",
 	"请先在「项目」页创建或选择一个项目": "Create or select a project on the Projects page first",
@@ -3016,7 +2992,6 @@ export const EN_MESSAGES: Record<string, string> = {
 	"这次建模没有整理业务实体。": "This modeling run did not organize any business entities.",
 	"这次监督没有给出建议。": "This supervision run produced no advice.",
 	这次调用的完整输出已不在当前会话文件中: "The full output of this call is no longer in the current session file",
-	进入平台: "Enter platform",
 	进度: "Progress",
 	进度与停止按每个会话的最新状态统计: "Progress and stop reasons are counted from each session's latest status",
 	进度快照: "Progress snapshot",
@@ -3083,7 +3058,6 @@ export const EN_MESSAGES: Record<string, string> = {
 	"重新评审失败：{error}": "Failed to re-run the review: {error}",
 	重新评审待确认: "Re-review pending",
 	重新读取已挂载工具: "Reload mounted tools",
-	重新阅读并接受: "Read again and accept",
 	重置: "Reset",
 	重试: "Retry",
 	重试评审: "Retry review",
@@ -3177,8 +3151,6 @@ export const EN_MESSAGES: Record<string, string> = {
 	"飞书自定义机器人只接受 https。": "Feishu custom bots only accept https.",
 	"飞书返回 code {code}: {message}{hint}": "Feishu returned code {code}: {message}{hint}",
 	"飞书：{error}": "Feishu: {error}",
-	"首次使用前必须阅读并勾选承诺，否则无法进入平台":
-		"You must read and accept the commitment before first use; otherwise you cannot enter the platform.",
 	"首次使用：设置管理员用户名与密码，之后用它登录。":
 		"First use: set an administrator username and password, then sign in with them.",
 	"首次打开会向插件主机取静态资源。": "The first open fetches static assets from the plugin host.",
@@ -3648,6 +3620,16 @@ export const EN_MESSAGES: Record<string, string> = {
 		"Over the WeCom per-message limit; truncated, {length} characters in total",
 	"任务结束后把结果推送到团队群。钉钉、飞书和企业微信可同时启用；在群的机器人设置里添加自定义机器人并填入 webhook。钉钉/飞书的加签与关键词按机器人安全设置选填。":
 		"Push results to a team chat when a task ends. DingTalk, Feishu, and WeCom can be enabled together; add a custom robot in the chat's robot settings and paste its webhook. Signing and keywords for DingTalk/Feishu follow each robot's security setting.",
+	"查询内容与 API Key 会发送到对应第三方平台（FOFA / 360 Quake / 奇安信 Hunter）。":
+		"Queries and API keys are sent to the selected third-party platform (FOFA / 360 Quake / QiAnXin Hunter).",
+	"所有命令都在项目容器内以 root 执行，bash 命令在审批模式下逐条确认。工具输出与文件面板内容来自容器。":
+		"All commands run as root inside the project container; in Approval mode each bash command is confirmed. Tool output and file-panel content come from the container.",
+	"自定义说明只改变监督关注点和建议风格，不能放宽安全规则。":
+		"Custom notes only change what the supervisor watches and how it advises; they cannot relax safety rules.",
+	"先看环境影响和证据完整性，建议以可复现、低影响步骤为主。":
+		"Check environmental impact and evidence completeness first; prefer reproducible, low-impact steps.",
+	"例如：先看环境影响，再验证越权": "e.g. check environmental impact before testing IDOR",
+	渗透测试工作台: "Penetration testing workspace",
 };
 
 export function translate(language: UiLanguage, source: string, vars?: Record<string, string | number>): string {

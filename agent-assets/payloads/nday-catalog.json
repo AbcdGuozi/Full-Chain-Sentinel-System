@@ -1,0 +1,244 @@
+[
+  {
+    "id": "gotty-empty-auth-token",
+    "product": "GoTTY",
+    "cve": "",
+    "affected": "GoTTY 各版本，未设置 --credential 时 auth_token 为空",
+    "vector": {
+      "method": "GET",
+      "path": "/{{GOTTY_PATH}}/auth_token.js",
+      "headers": {
+        "Accept": "*/*"
+      },
+      "body": ""
+    },
+    "verify": {
+      "type": "regex",
+      "pattern": "gotty_auth_token\\s*=\\s*['\"]{2}"
+    },
+    "severity": "high",
+    "stopOnRce": false,
+    "description": "GoTTY 未配置凭据时会下发空的 auth_token，攻击者可连接终端接口。本条目只读取 /auth_token.js 判断 token 是否为空，不建立 WebSocket，不发送命令。",
+    "remediation": "为 GoTTY 配置 --credential 或前置认证，限制终端接口访问来源，并升级到受维护版本。"
+  },
+  {
+    "id": "spring-boot-actuator-env-exposed",
+    "product": "Spring Boot",
+    "cve": "",
+    "affected": "Spring Boot 2.x/3.x，Actuator 端点未做鉴权",
+    "vector": {
+      "method": "GET",
+      "path": "/{{SPRING_PATH}}/actuator/env",
+      "headers": {
+        "Accept": "application/json"
+      },
+      "body": ""
+    },
+    "verify": {
+      "type": "body-contains",
+      "pattern": "propertySources"
+    },
+    "severity": "high",
+    "stopOnRce": false,
+    "description": "Actuator env 端点未鉴权时会返回配置属性，可能泄露数据库口令、密钥等敏感信息。本条目只读取属性列表，不修改配置，不调用刷新或重启接口。",
+    "remediation": "启用 Spring Security 保护 Actuator，仅暴露必要端点，并通过 management.endpoints.web.exposure.include 收敛暴露面。"
+  },
+  {
+    "id": "jenkins-script-console-readonly",
+    "product": "Jenkins",
+    "cve": "",
+    "affected": "Jenkins 各版本，脚本控制台可匿名或低权限访问",
+    "vector": {
+      "method": "POST",
+      "path": "/{{JENKINS_CONTEXT}}/scriptText",
+      "headers": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "body": "script={{COMMAND}}"
+    },
+    "verify": {
+      "type": "regex",
+      "pattern": "uid=\\d+\\([^)]*\\)"
+    },
+    "severity": "critical",
+    "stopOnRce": true,
+    "description": "Jenkins 脚本控制台可访问时，可通过 Groovy 执行系统命令。本条目只执行 id 读取当前用户，命中后立即停止，不写文件、不建立反向连接、不修改任务。",
+    "remediation": "禁用或限制脚本控制台访问，启用矩阵授权策略，移除匿名读权限，并升级 Jenkins 及插件。"
+  },
+  {
+    "id": "grafana-health-anonymous",
+    "product": "Grafana",
+    "cve": "",
+    "affected": "Grafana 各版本，/api/health 允许匿名访问",
+    "vector": {
+      "method": "GET",
+      "path": "/{{GRAFANA_PATH}}/api/health",
+      "headers": {
+        "Accept": "application/json"
+      },
+      "body": ""
+    },
+    "verify": {
+      "type": "regex",
+      "pattern": "\"database\"\\s*:\\s*\"ok\""
+    },
+    "severity": "low",
+    "stopOnRce": false,
+    "description": "Grafana 健康检查接口匿名可读，可确认服务与数据库状态。本条目只读取健康信息，不登录、不读取面板或数据源凭据。",
+    "remediation": "按需限制 /api/health 访问来源，关闭匿名访问，并保持 Grafana 为受支持版本。"
+  },
+  {
+    "id": "shiro-rememberme-default-key",
+    "product": "Shiro",
+    "cve": "CVE-2016-4437",
+    "affected": "Apache Shiro < 1.2.5",
+    "vector": {
+      "method": "GET",
+      "path": "/{{APP_PATH}}/",
+      "headers": {
+        "Accept": "text/html"
+      },
+      "body": ""
+    },
+    "verify": {
+      "type": "regex",
+      "pattern": "rememberMe=deleteMe|prefix=rememb"
+    },
+    "severity": "critical",
+    "stopOnRce": false,
+    "description": "Shiro 默认 rememberMe 密钥可导致反序列化风险。本条目只读取响应中的 rememberMe 特征；replay 会脱敏 Set-Cookie，验证规则同时匹配脱敏后的前缀。不构造或发送序列化数据。",
+    "remediation": "升级 Shiro 至 1.2.5 及以上，更换 rememberMe 密钥，关闭不必要的 rememberMe 功能。"
+  },
+  {
+    "id": "fastjson-error-signature",
+    "product": "Fastjson",
+    "cve": "",
+    "affected": "Fastjson 1.x/2.x，错误页暴露出组件信息",
+    "vector": {
+      "method": "GET",
+      "path": "/{{API_PATH}}",
+      "headers": {
+        "Accept": "application/json"
+      },
+      "body": ""
+    },
+    "verify": {
+      "type": "body-contains",
+      "pattern": "com.alibaba.fastjson"
+    },
+    "severity": "medium",
+    "stopOnRce": false,
+    "description": "错误响应可能暴露 Fastjson 组件与版本，用于后续人工评估反序列化风险。本条目只触发普通只读请求并匹配错误特征，不发送 autoType 数据。",
+    "remediation": "升级 Fastjson 至安全版本，关闭 autoType，统一异常处理并避免回显内部类名。"
+  },
+  {
+    "id": "struts2-error-page-detect",
+    "product": "Struts2",
+    "cve": "",
+    "affected": "Struts2 各版本，错误页或 .action 路由暴露组件",
+    "vector": {
+      "method": "GET",
+      "path": "/{{ACTION_PATH}}",
+      "headers": {
+        "Accept": "text/html"
+      },
+      "body": ""
+    },
+    "verify": {
+      "type": "regex",
+      "pattern": "Struts Problem Report|org\\.apache\\.struts2"
+    },
+    "severity": "medium",
+    "stopOnRce": false,
+    "description": "通过普通 GET 请求识别 Struts2 错误页或路由特征，用于人工复核已知漏洞影响。本条目不发送 OGNL 表达式、不修改请求头 Content-Type。",
+    "remediation": "升级 Struts2 至受支持版本，关闭开发模式错误页，统一异常处理并过滤危险 Content-Type。"
+  },
+  {
+    "id": "weblogic-console-detect",
+    "product": "Weblogic",
+    "cve": "",
+    "affected": "Oracle WebLogic Server 各版本，管理控制台暴露",
+    "vector": {
+      "method": "GET",
+      "path": "/{{WEBLOGIC_PATH}}/console/login/LoginForm.jsp",
+      "headers": {
+        "Accept": "text/html"
+      },
+      "body": ""
+    },
+    "verify": {
+      "type": "body-contains",
+      "pattern": "WebLogic"
+    },
+    "severity": "medium",
+    "stopOnRce": false,
+    "description": "管理控制台登录页可公开访问时，可能扩大已知反序列化漏洞的攻击面。本条目只读取登录页特征，不提交凭据、不发送序列化数据。",
+    "remediation": "限制管理控制台访问来源，及时安装 Oracle 安全补丁，禁用不必要的控制台组件。"
+  },
+  {
+    "id": "tomcat-manager-exposed",
+    "product": "Tomcat",
+    "cve": "",
+    "affected": "Apache Tomcat 各版本，Manager 应用对外暴露",
+    "vector": {
+      "method": "GET",
+      "path": "/{{TOMCAT_PATH}}/manager/html",
+      "headers": {
+        "Accept": "text/html"
+      },
+      "body": ""
+    },
+    "verify": {
+      "type": "regex",
+      "pattern": "Tomcat Manager Application|Tomcat"
+    },
+    "severity": "medium",
+    "stopOnRce": false,
+    "description": "Tomcat Manager 对外暴露时会返回认证挑战或管理页面。本条目只读取页面与响应头特征，不尝试口令、不部署应用。",
+    "remediation": "删除或限制 Manager 应用，配置强口令与来源白名单，升级 Tomcat 并移除默认应用。"
+  },
+  {
+    "id": "kubernetes-api-anonymous-list",
+    "product": "Kubernetes API",
+    "cve": "",
+    "affected": "Kubernetes 各版本，API Server 允许匿名读取命名空间列表",
+    "vector": {
+      "method": "GET",
+      "path": "/{{K8S_API_PREFIX}}/api/v1/namespaces",
+      "headers": {
+        "Accept": "application/json"
+      },
+      "body": ""
+    },
+    "verify": {
+      "type": "regex",
+      "pattern": "\"kind\"\\s*:\\s*\"NamespaceList\""
+    },
+    "severity": "high",
+    "stopOnRce": false,
+    "description": "API Server 允许匿名读取命名空间列表，说明匿名认证或 RBAC 配置过宽。本条目只读取列表，不创建、修改或删除资源，不读取 Secret。",
+    "remediation": "关闭匿名认证，收敛 RBAC 权限，限制 API Server 访问来源并启用审计日志。"
+  },
+  {
+    "id": "elasticsearch-open-http",
+    "product": "Elasticsearch",
+    "cve": "",
+    "affected": "Elasticsearch 各版本，HTTP 接口未启用认证",
+    "vector": {
+      "method": "GET",
+      "path": "/{{ES_PATH}}/",
+      "headers": {
+        "Accept": "application/json"
+      },
+      "body": ""
+    },
+    "verify": {
+      "type": "regex",
+      "pattern": "\"tagline\"\\s*:\\s*\"You Know, for Search\""
+    },
+    "severity": "high",
+    "stopOnRce": false,
+    "description": "Elasticsearch HTTP 根接口匿名可读，可能进一步读取索引和文档。本条目只读取根接口版本与集群信息，不查询索引、不写入数据。",
+    "remediation": "启用 Elasticsearch 安全认证与 TLS，限制 HTTP 接口访问来源，关闭匿名访问。"
+  }
+]

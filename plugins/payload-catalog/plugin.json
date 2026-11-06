@@ -1,0 +1,43 @@
+{
+	"schema": 1,
+	"id": "com.sentinel.payload-catalog",
+	"name": "场景化 Payload 目录",
+	"version": "0.1.0",
+	"description": "按资产类型、输入面和观测 signals 选择 payload，返回首选变体、WAF 绕过形式与停止条件。目录只读，不发送请求。",
+	"author": "github:zgsfsec",
+	"source": "https://github.com/zgsfsec/Full-Chain-Sentinel-System/tree/main/plugins/payload-catalog",
+	"license": "MIT",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"context": "."
+	},
+	"mcp": {
+		"transport": "http",
+		"port": 7801,
+		"path": "/mcp",
+		"startupTimeoutMs": 15000,
+		"requestTimeoutMs": 60000
+	},
+	"permissions": {
+		"network": "bridge",
+		"capAdd": [],
+		"privileged": false
+	},
+	"locality": "any",
+	"resources": {
+		"cpus": 0.25,
+		"memory": "96m",
+		"pidsLimit": 32
+	},
+	"healthcheck": {
+		"path": "/healthz",
+		"intervalMs": 5000,
+		"timeoutMs": 2000,
+		"retries": 3
+	},
+	"tools": [
+		{ "name": "payload_search", "description": "按关键词、场景、资产类型或风险级别检索 payload；高风险非破坏条目可执行到确认" },
+		{ "name": "payload_select", "description": "按观测 signals 排序场景与 payload，返回判据与停止条件" },
+		{ "name": "payload_get", "description": "读取完整变体、WAF 绕过与停止条件；破坏性条目仅人工复核" }
+	]
+}

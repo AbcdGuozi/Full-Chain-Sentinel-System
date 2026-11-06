@@ -483,7 +483,7 @@ export function buildGoalContract(goal: SentinelGoal, kind: "initial" | "continu
 		"本轮要求：",
 		kind === "continue"
 			? "- 从待办继续推进，不要重述已经完成的部分；目标未达成前不要停手。"
-			: "- 按目标推进，先确认范围与授权，再执行命令。",
+			: "- 按目标推进，先确认范围与影响面，再执行命令。",
 		"- 每轮结束前用 goal_progress 更新「已完成 / 待办 / 阻塞」。",
 		`- 只有真正达成目标时才调用 goal_complete（goal_id: ${goal.id}），并给出证据、验收标准逐条结论；本轮若提交过漏洞，必须先用 vuln_submit 提交到漏洞中枢，再在 findings 中如实声明条数。`,
 		`- 确实被同一个问题连续卡住时调用 goal_blocked（goal_id: ${goal.id}），说明原因与证据；同一阻塞连续 ${BLOCKED_STREAK_LIMIT} 轮才会真正停止。`,

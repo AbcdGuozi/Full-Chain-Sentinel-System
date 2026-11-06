@@ -88,14 +88,6 @@ interface AcquiredTaskSession {
 }
 
 import {
-	CONSENT_VERSION,
-	type ConsentStatus,
-	consentStatus,
-	consentTextFor,
-	isConsentExemptPath,
-	writeConsentRecord,
-} from "./consent.ts";
-import {
 	DEFAULT_CONTAINER_NETWORK,
 	normalizeContainerNetwork,
 	readContainerNetwork,
@@ -173,12 +165,6 @@ export interface SentinelServerOptions {
 	 * on by default and hands the PEM contents here.
 	 */
 	tls?: { cert: string; key: string };
-	/**
-	 * First-visit authorization promise (default: on exactly when authentication
-	 * is). Until the operator accepts the statement, `/api` and the WebSocket
-	 * answer 403 and only the statement itself is served.
-	 */
-	consent?: boolean;
 }
 
 export function webuiDistDir(): string {
@@ -423,9 +409,6 @@ export async function startSentinelServer(
 	// has a password should not be visible before its login page.
 	const gateEnabled = options.gate ?? (options.auth !== false && Boolean(agentDir));
 	const gateToken = gateEnabled ? (options.gateToken ?? generateGateToken()) : "";
-	// The authorization promise follows authentication too: it is tied to the
-	// account that accepts it, so a console with no account has nothing to record.
-	const consentEnabled = options.consent ?? (options.auth !== false && Boolean(agentDir));
 	const startup = agentDir ? await resolveStartupProject(agentDir) : {};
 	// The operator's own shell. It is not a tool call: it is never gated and never
 	// audited, and it outlives the panel that opened it — a listener started there has
@@ -830,16 +813,10 @@ export async function startSentinelServer(
 	const authEnabled = options.auth !== false && Boolean(agentDir);
 	const currentAuth = (): StoredAuth | null => (authEnabled && agentDir ? readStoredAuth(agentDir) : null);
 	const limiter = createLoginLimiter();
-	/** The promise state for the account this request belongs to. */
-	const consentFor = (username: string | null): ConsentStatus =>
-		consentEnabled
-			? consentStatus(agentDir, username)
-			: { required: false, acceptedAt: null, version: CONSENT_VERSION };
-
 	/**
-	 * Language switch for the login and consent screens, which exist before the
-	 * console WebSocket. The console itself uses the socket message so it can
-	 * receive the acknowledgement and reload in the new language.
+	 * Language switch for the login screen, which exists before the console
+	 * WebSocket. The console itself uses the socket message so it can receive the
+	 * acknowledgement and reload in the new language.
 	 */
 	async function handleUiLanguage(request: IncomingMessage, response: ServerResponse): Promise<void> {
 		const body = await readJsonBody(request);
@@ -952,28 +929,6 @@ export async function startSentinelServer(
 	}
 
 	/**
-	 * Records the promise for this account. The body has to say `accepted: true`:
-	 * the checkbox is the point, so an empty POST must not be enough.
-	 */
-	async function handleConsentAccept(
-		request: IncomingMessage,
-		response: ServerResponse,
-		username: string,
-	): Promise<void> {
-		if (!agentDir) {
-			sendJson(response, { error: t("缺少配置目录，无法记录承诺") }, 500);
-			return;
-		}
-		const body = await readJsonBody(request);
-		if (body?.accepted !== true) {
-			sendJson(response, { error: t("必须勾选承诺才能记录") }, 400);
-			return;
-		}
-		const record = writeConsentRecord(agentDir, username);
-		sendJson(response, { ok: true, acceptedAt: record.acceptedAt, version: CONSENT_VERSION });
-	}
-
-	/**
 	 * One chat attachment: the raw request body is the file, `name` says what to
 	 * call it. It is streamed into the project's uploads directory (see upload.ts)
 	 * and the answer carries the absolute path the message will hand the model.
@@ -1037,7 +992,7 @@ export async function startSentinelServer(
 	/**
 	 * One ready archive, streamed from the temp file. The download is authorized
 	 * by the console's normal session cookie: the route sits under /api, after
-	 * the same auth and consent checks as every other API call.
+	 * the same auth checks as every other API call.
 	 */
 	function handleFolderArchiveDownload(response: ServerResponse, id: string): void {
 		const job = folderArchives.beginDownload(id);
@@ -1195,14 +1150,6 @@ export async function startSentinelServer(
 			return;
 		}
 		if (authorized) {
-			// The promise comes before every other route: until it is recorded, the
-			// console answers 403 and only the statement itself, the promise that
-			// records it, and the session status stay reachable. The WebSocket is
-			// closed separately in the upgrade handler.
-			if (path.startsWith("/api/") && !isConsentExemptPath(path) && consentFor(auth?.username ?? null).required) {
-				sendJson(response, { error: "consent_required" }, 403);
-				return;
-			}
 			if (path.startsWith("/plugin-icon/")) {
 				void servePluginIcon(runtime, request, response);
 				return;
@@ -1235,7 +1182,7 @@ export async function startSentinelServer(
 			}
 			if (path === "/api/auth/session") {
 				const username = auth?.username ?? null;
-				sendJson(response, { ok: true, username, consent: consentFor(username) });
+				sendJson(response, { ok: true, username });
 				return;
 			}
 			if (path === "/api/auth/change-password" && request.method === "POST") {
@@ -1256,21 +1203,6 @@ export async function startSentinelServer(
 					return;
 				}
 				void handleUpload(request, response, active.cwd);
-				return;
-			}
-			// The statement and the promise that records it. Both stay reachable
-			// before the promise: the page has to be able to show the text, and the
-			// operator has to be able to accept it.
-			if (path === "/api/consent") {
-				sendJson(response, { ...consentFor(auth?.username ?? null), text: consentTextFor(getServerLanguage()) });
-				return;
-			}
-			if (path === "/api/consent/accept" && request.method === "POST") {
-				if (!agentDir || !auth) {
-					sendJson(response, { error: t("缺少账号或配置目录，无法记录承诺") }, 500);
-					return;
-				}
-				void handleConsentAccept(request, response, auth.username);
 				return;
 			}
 		} else if (path.startsWith("/api/")) {
@@ -1314,12 +1246,6 @@ export async function startSentinelServer(
 		}
 		if (url.pathname !== "/ws" || (authEnabled && !hasValidSession(currentAuth(), request))) {
 			socket.write("HTTP/1.1 401 Unauthorized\r\nConnection: close\r\n\r\n");
-			socket.destroy();
-			return;
-		}
-		// A live console socket is the agent itself, so it waits for the promise.
-		if (consentFor(currentAuth()?.username ?? null).required) {
-			socket.write("HTTP/1.1 403 Forbidden\r\nConnection: close\r\n\r\n");
 			socket.destroy();
 			return;
 		}

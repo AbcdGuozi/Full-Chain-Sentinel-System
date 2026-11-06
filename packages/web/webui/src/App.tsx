@@ -5,7 +5,6 @@ import { ApprovalQueue } from "./components/ApprovalQueue.tsx";
 import { AppSider, type PluginNavEntry } from "./components/AppSider.tsx";
 import { MobileTopbar } from "./components/MobileTopbar.tsx";
 import { AuthGate } from "./components/AuthGate.tsx";
-import { ConsentGate } from "./components/ConsentGate.tsx";
 import { PageBoundary } from "./components/PageBoundary.tsx";
 import { BranchModal } from "./components/BranchModal.tsx";
 import { ChatToolbar } from "./components/ChatToolbar.tsx";
@@ -343,7 +342,7 @@ export function App() {
 	 * Console authentication: the console renders only once the session is
 	 * confirmed; otherwise the login (or first-run setup) screen replaces it.
 	 */
-	const [authState, setAuthState] = useState<"checking" | "ready" | "setup" | "login" | "consent">("checking");
+	const [authState, setAuthState] = useState<"checking" | "ready" | "setup" | "login">("checking");
 	const [authUser, setAuthUser] = useState<string | null>(null);
 	/** Overlays opened from the chat toolbar. */
 	const [filesOpen, setFilesOpen] = useState(false);
@@ -1598,14 +1597,9 @@ export function App() {
 				const session = await fetch("/api/auth/session");
 				if (cancelled) return;
 				if (session.ok) {
-					const data = (await session.json().catch(() => ({}))) as {
-						username?: unknown;
-						consent?: { required?: unknown };
-					};
+					const data = (await session.json().catch(() => ({}))) as { username?: unknown };
 					setAuthUser(typeof data.username === "string" ? data.username : null);
-					// The promise comes before the console: until it is recorded the
-					// server answers 403 to the API and closes the WebSocket.
-					setAuthState(data.consent?.required === true ? "consent" : "ready");
+					setAuthState("ready");
 					return;
 				}
 				const state = (await fetch("/api/auth/state")
@@ -2515,20 +2509,14 @@ export function App() {
 				onDone={() => {
 					void (async () => {
 						const session = await fetch("/api/auth/session").catch(() => null);
-						const data = (await session?.json().catch(() => ({}))) as
-							| { username?: unknown; consent?: { required?: unknown } }
-							| undefined;
+						const data = (await session?.json().catch(() => ({}))) as { username?: unknown } | undefined;
 						setAuthUser(typeof data?.username === "string" ? data.username : null);
-						setAuthState(data?.consent?.required === true ? "consent" : "ready");
+						setAuthState("ready");
 					})();
 				}}
 			/>
 		);
 	}
-	if (authState === "consent") {
-		return <ConsentGate onAccepted={() => setAuthState("ready")} />;
-	}
-
 	return (
 		<div className="app">
 			{navigation.mobileOpen ? (

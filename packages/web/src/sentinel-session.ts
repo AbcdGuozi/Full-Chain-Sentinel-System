@@ -43,6 +43,7 @@ import {
 	type ThinkingLevel,
 	type ToolDefinition,
 } from "@earendil-works/pi-coding-agent";
+import { seedBundledAgentAssets } from "./agent-assets.ts";
 import {
 	createApiModelAttachTools,
 	createApiModelTools,
@@ -184,6 +185,7 @@ import {
 	testWecom,
 } from "./notify.ts";
 import { readNotifyConfig, writeNotifyConfig } from "./notify-config.ts";
+import { createPayloadTools } from "./payload-tool.ts";
 import {
 	effectiveSubagent,
 	effectiveSubagentPlugins,
@@ -618,6 +620,9 @@ export class SentinelRuntime {
 		this.sessionDir = getDefaultSessionDir(this.cwd, this.agentDir);
 		this.subagentStore = new SubagentStore(subagentDbPath(this.agentDir));
 		this.vulnerabilities = new VulnerabilityStore(vulnerabilityDbPath(this.agentDir));
+		// Seed the bundled skills and payload catalog before a session can load
+		// them. Existing files are never overwritten.
+		seedBundledAgentAssets(this.agentDir);
 		// Seed the built-in presets before anything reads the store: a fresh
 		// console must offer them from its very first session.
 		ensureBuiltinPresets(this.agentDir);
@@ -967,6 +972,9 @@ export class SentinelRuntime {
 			// The POC library is read-only reference; the switch controls both of
 			// its tools, and sub-agents inherit it through the subset rule.
 			...(permissions.poc_read ? createPocTools({ store: this.pocs }) : []),
+			...(permissions.poc_read
+				? createPayloadTools({ catalogPath: join(this.agentDir, "payloads", "payload-catalog.json") })
+				: []),
 			...(assetPlatforms.length > 0
 				? createAssetTools(
 						assetPlatforms,
@@ -1062,6 +1070,11 @@ export class SentinelRuntime {
 								}),
 							extraTools: [
 								...(subagentPermissions.poc_read ? createPocTools({ store: this.pocs }) : []),
+								...(subagentPermissions.poc_read
+									? createPayloadTools({
+											catalogPath: join(this.agentDir, "payloads", "payload-catalog.json"),
+										})
+									: []),
 								// A sub-agent shares the parent session's query budget, so a
 								// fan-out cannot spend the operator's quota faster than the
 								// budget allows.

@@ -2,23 +2,20 @@
 
 **English** | [简体中文](README.md)
 
-Zhigong Shanfang Lab. An **authorized penetration-testing agent** built on the [pi](https://github.com/earendil-works/pi) agent harness, with a bilingual Chinese/English web console (Chinese by default) and a containerized workspace.
+Zhigong Shanfang Lab. A **penetration-testing agent** built on the [pi](https://github.com/earendil-works/pi) agent harness, with a bilingual Chinese/English web console (Chinese by default) and a containerized workspace.
 
-## Authorized use
+## Use notice
 
-This project is an offensive security tool. **Use it only against targets for which you hold written authorization.**
+Agent behavior cannot be fully controlled: in Auto mode the model can run arbitrary commands. **You are responsible for any business interruption, data damage, unauthorized access, or other consequences caused by using this project.** The authors and contributors accept no liability.
 
-- Unauthorized penetration testing, vulnerability scanning, password cracking, or intrusion against systems you do not own or have permission to test is illegal in mainland China and most other jurisdictions (see Article 27 of the Cybersecurity Law of the PRC and Articles 285, 286, and 287-2 of the Criminal Law of the PRC; this paragraph is not legal advice).
-- On first entering the console you must accept "I promise to use this only for authorized and lawful penetration testing". A hash of the acceptance and the statement is stored in the local configuration directory. Updating the statement or switching accounts requires accepting it again.
-- Agent behavior cannot be fully controlled: in Auto mode the model can run arbitrary commands. **You are responsible for any business interruption, data damage, unauthorized access, or other consequences caused by using this project.** The authors and contributors accept no liability.
-- Use it within the authorized scope and in an isolated environment. Obtain written authorization and agree on a time window before testing production systems.
+Use it in an isolated environment and agree on a time window before testing production systems. Prefer read-only or reversible validation.
 
 This project is released under the MIT License, without warranty of any kind.
 
 ## Features
 
-- **Methodology-driven penetration workflow**: reconnaissance → enumeration → vulnerability mapping → validation → exploitation → post-exploitation → reporting. System prompts emphasize scope, evidence retention, and minimal impact.
-- **Bilingual web console** ([packages/web](packages/web/README.md)): Chinese by default. English can be selected from the sidebar, the sign-in page, and the consent page; server messages, errors, and reports are localized too. Includes streaming chat and reasoning, tool execution cards, a session tree, file and subagent dialogs, and project selection.
+- **Methodology-driven penetration workflow**: reconnaissance → enumeration → vulnerability mapping → validation → exploitation → post-exploitation → reporting. System prompts emphasize evidence retention and minimal impact.
+- **Bilingual web console** ([packages/web](packages/web/README.md)): Chinese by default. English can be selected from the sidebar and the sign-in page; server messages, errors, and reports are localized too. Includes streaming chat and reasoning, tool execution cards, a session tree, file and subagent dialogs, and project selection.
 - **Three execution modes**: Approval (default; every bash command can be edited before it is allowed or rejected), Auto, and AI Approval (a Gatekeeper model returns `ALLOW` / `BLOCK` for each command; failures and timeouts fail open). The approval chain covers bash and Android shell commands (`droid_shell`). Frida, packet capture, APK analysis, and the file panel call the container directly and bypass approval.
 - **Containerized workspace**: one Kali container per project, with reconnaissance, enumeration, web exploitation, password, and internal-network tools. The container network mode is configured under Settings → Environment (host by default).
 - **Vulnerability hub**: `vuln_submit` records validated findings, requires a CVSS score, preserves raw packets verbatim, keeps an operator review timeline, and exports a Markdown report per project.
@@ -111,8 +108,7 @@ HTTPS uses a self-signed certificate by default. On first start, the console gen
 First-visit flow:
 
 1. Set the console password (scrypt hash, stored in the local configuration directory).
-2. Read and accept the authorized-use consent.
-3. Configure an endpoint (Base URL / API Key / model ID) under "Model settings" in the left sidebar.
+2. Configure an endpoint (Base URL / API Key / model ID) under "Model settings" in the left sidebar.
 
 Startup flags and environment variables:
 
@@ -126,7 +122,6 @@ Startup flags and environment variables:
 | `--no-tls` | `SENTINEL_TLS=0` | Disable HTTPS and fall back to plaintext HTTP (self-signed HTTPS is the default) |
 | `--tls-cert` / `--tls-key` | — | Use the given certificate and private key (as a pair; takes precedence over auto-generation) |
 | `--tls-regen` | — | Regenerate the self-signed certificate (after an IP change or a browser domain mismatch) |
-| `--no-consent` | — | Skip the first-use authorization consent (automation environments) |
 | `--check` | — | Run startup checks and print the report without starting the service |
 
 The plugin host is a subcommand of the same binary and has separate flags:
@@ -214,7 +209,7 @@ The base image and apt/pip/npm/go mirrors are configured under Settings → Envi
 
 For the complete boundaries and configuration, see [packages/web/README.md](packages/web/README.md#安全提示).
 
-In Auto mode the model can run arbitrary commands, and persistent goals have no dangerous-command blacklist in Auto mode either. Use it only against **authorized targets in an isolated environment**. If you need unattended operation without allowing everything, use AI Approval. Console login, the random entry string, and the authorization consent prevent misuse and scanning; they are not isolation.
+In Auto mode the model can run arbitrary commands, and persistent goals have no dangerous-command blacklist in Auto mode either. Use it in an **isolated environment**. If you need unattended operation without allowing everything, use AI Approval. Console login and the random entry string prevent misuse and scanning; they are not isolation.
 
 Report security issues through a repository issue. Do not include directly exploitable details in a public issue.
 

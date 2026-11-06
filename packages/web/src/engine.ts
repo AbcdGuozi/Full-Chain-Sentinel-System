@@ -1731,9 +1731,7 @@ export function presetChoiceHint(
 	if (presets.length === 0) {
 		return engine.presetOptional
 			? t("本工程未启用任何预设 Agent，请省略 preset 参数，使用默认 Agent。")
-			: t(
-					"本工程要求每个任务都指定预设 Agent，但当前没有可用预设：请让操作员启用或授权预设，不要派发无预设的任务。",
-				);
+			: t("本工程要求每个任务都指定预设 Agent，但当前没有可用预设：请让操作员启用预设，不要派发无预设的任务。");
 	}
 	return t("可用预设：{list}", {
 		list: presets.map((preset) => `${preset.id}（${preset.name}）`).join("、"),
@@ -1835,7 +1833,7 @@ export function buildCommanderBrief(
 		presetBriefLines(presets).join("\n") ||
 		(engine.presetOptional
 			? "（本工程没有可用预设，所有任务都使用默认 Agent，省略 preset 参数）"
-			: "（本工程没有可用预设，但本工程要求每个任务都必须指定预设：不要派发无预设的任务，先让操作员启用或授权预设）");
+			: "（本工程没有可用预设，但本工程要求每个任务都必须指定预设：不要派发无预设的任务，先让操作员启用预设）");
 	return [
 		"你是 全链哨兵 工程模式的主指挥官。你只负责分配与调度，绝不亲自执行任何侦察、命令或利用——你没有任何执行工具，也不要尝试扮演执行者。",
 		"",

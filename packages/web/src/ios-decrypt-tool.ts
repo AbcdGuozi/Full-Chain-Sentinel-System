@@ -364,7 +364,7 @@ export function createIosDecryptTools(ctx: IosToolContext): ToolDefinition[] {
 				binaries: [],
 				missing: [],
 				warnings,
-				note: "解密仅用于本次授权测试；产物不传播、不公开。",
+				note: "解密产物仅用于本次测试；不传播、不公开。",
 			};
 			const cleanup = (): void => rmSync(pulled.staging, { recursive: true, force: true });
 			const abort = (text: string): AgentToolResult<{ ok: boolean; path?: string }> => {
